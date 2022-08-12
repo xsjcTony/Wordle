@@ -18,7 +18,9 @@ const Header = (): JSX.Element => {
     <header className={styles.header}>
       <div className={styles.headerLeft}>
         <img alt="Aelita's logo" className={styles.logo} src={aelitaLogo} />
-        <img alt="Wordle's logo" className={styles.logo} src={wordleLogo} />
+        <a href="https://www.nytimes.com/games/wordle/index.html" rel="noreferrer" target="_blank">
+          <img alt="Wordle's logo" className={styles.logo} src={wordleLogo} />
+        </a>
       </div>
       <h1 className={styles.title}>Aelita&apos;s Wordle</h1>
       <div className={styles.headerRight}>
