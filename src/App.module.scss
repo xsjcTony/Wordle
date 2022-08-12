@@ -1,0 +1,8 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: var(--game-max-width);
+    height: calc(100% - var(--header-height));
+    margin-inline: auto;
+}

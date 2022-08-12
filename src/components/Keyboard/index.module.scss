@@ -1,0 +1,12 @@
+.keyboard {
+    display: flex;
+    flex-direction: column;
+    height: var(--keyboard-height);
+    margin: 0 8px 10px;
+    gap: 8px;
+
+    .keyboard-row {
+        display: flex;
+        gap: 6px;
+    }
+}
