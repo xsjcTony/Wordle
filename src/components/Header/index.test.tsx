@@ -15,6 +15,14 @@ describe('Header', () => {
     expect(screen.getByAltText(/Wordle's Logo/i)).toBeVisible()
   })
 
+  it(`Click on Wordle's logo will open a new window to official site with noreferrer`, () => {
+    render(<Header />)
+    const link = screen.getByRole('link')
+    expect(link).toHaveAttribute('href', 'https://www.nytimes.com/games/wordle/index.html')
+    expect(link).toHaveAttribute('target', expect.stringContaining('_blank'))
+    expect(link).toHaveAttribute('rel', expect.stringContaining('noreferrer'))
+  })
+
   it('Title is visible', () => {
     render(<Header />)
     expect(screen.getByText(/Aelita's Wordle/i)).toBeVisible()
