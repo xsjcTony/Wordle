@@ -1,0 +1,19 @@
+.keyboard-key {
+    display: inline-flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    height: 58px;
+    margin-right: 6px;
+    padding: 0;
+    font-weight: 700;
+    border: none;
+
+    &:last-of-type {
+        margin-right: 0;
+    }
+
+    &.wide {
+        flex: 1.5;
+    }
+}
