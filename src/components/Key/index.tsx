@@ -10,12 +10,12 @@ interface KeyProps {
 
 
 const Key = ({ keyText, wide = false }: KeyProps): JSX.Element => (
-  <button className={clsx(styles.keyboardKey, wide && styles.wide)}>
-    {
-      typeof keyText === 'string'
-        ? keyText.toUpperCase()
-        : keyText
-    }
+  <button
+    className={clsx(styles.keyboardKey, wide && styles.wide)}
+    type="button"
+    onClick={() => void 0}
+  >
+    {keyText}
   </button>
 )
 

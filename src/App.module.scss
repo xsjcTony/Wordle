@@ -3,6 +3,6 @@
     flex-direction: column;
     align-items: center;
     max-width: var(--game-max-width);
-    height: calc(100% - var(--header-height));
+    height: calc(100% - var(--header-height) - 1px); // header's height and its border width
     margin-inline: auto;
 }

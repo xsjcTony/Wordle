@@ -24,7 +24,6 @@ specifiers:
   eslint-plugin-react: ^7.30.1
   eslint-plugin-react-hooks: ^4.6.0
   jsdom: ^20.0.0
-  normalize.css: ^8.0.1
   postcss-flexbugs-fixes: ^5.0.2
   react: ^18.2.0
   react-dom: ^18.2.0
@@ -39,7 +38,6 @@ specifiers:
 dependencies:
   ahooks: 3.7.0_react@18.2.0
   clsx: 1.2.1
-  normalize.css: 8.0.1
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-error-boundary: 3.1.4_react@18.2.0
@@ -2815,10 +2813,6 @@ packages:
     resolution: {integrity: sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==}
     engines: {node: '>=0.10.0'}
     dev: true
-
-  /normalize.css/8.0.1:
-    resolution: {integrity: sha512-qizSNPO93t1YUuUhP22btGOo3chcvDFqFaj2TRybP0DMxkHOCTYwp3n34fel4a31ORXy4m1Xq0Gyqpb5m33qIg==}
-    dev: false
 
   /nwsapi/2.2.1:
     resolution: {integrity: sha512-JYOWTeFoS0Z93587vRJgASD5Ut11fYl5NyihP3KrYBvMe1FRRs6RN7m20SA/16GM4P6hTnZjT+UmDOt38UeXNg==}

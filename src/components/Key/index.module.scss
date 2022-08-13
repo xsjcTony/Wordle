@@ -6,8 +6,31 @@
     height: 58px;
     margin-right: 6px;
     padding: 0;
-    font-weight: 700;
     border: none;
+    border-radius: 4px;
+    background-color: var(--key-bg);
+    color: var(--key-text-color);
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    user-select: none;
+    transition: color .25s, background-color .25s;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, .3);
+
+    &[data-state=absent] {
+        background-color: var(--key-bg-absent);
+        color: var(--key-evaluated-text-color);
+    }
+
+    &[data-state=present] {
+        background-color: var(--key-bg-present);
+        color: var(--key-evaluated-text-color);
+    }
+
+    &[data-state=correct] {
+        background-color: var(--key-bg-correct);
+        color: var(--key-evaluated-text-color);
+    }
 
     &:last-of-type {
         margin-right: 0;
@@ -15,5 +38,10 @@
 
     &.wide {
         flex: 1.5;
+        font-size: 12px;
+    }
+
+    &:focus {
+        outline: none;
     }
 }

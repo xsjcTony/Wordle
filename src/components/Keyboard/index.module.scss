@@ -2,14 +2,16 @@
     display: flex;
     flex-direction: column;
     height: var(--keyboard-height);
-    margin: 0 8px 10px;
+    padding-inline: 8px;
     width: 100%;
     gap: 8px;
     font-size: 16px;
+    box-sizing: border-box;
+    touch-action: manipulation; // TODO: need to fix fast double tap
+    user-select: none;
 
     .keyboard-row {
         display: flex;
-        justify-content: space-between;
 
         .keyboard-space {
             flex: .5;

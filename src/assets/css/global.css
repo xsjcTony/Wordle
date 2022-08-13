@@ -9,6 +9,8 @@ html, body {
     height: 100%;
     background-color: var(--color-background);
     transition: background-color .25s;
+    margin: 0;
+    padding: 0;
 }
 
 img {
