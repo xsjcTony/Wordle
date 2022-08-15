@@ -27,12 +27,6 @@ ul {
 }
 
 
-/* App */
-#app {
-    height: 100%;
-}
-
-
 /* css variables */
 :root {
     --header-height: 40px;
