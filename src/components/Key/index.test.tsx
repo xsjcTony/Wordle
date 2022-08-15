@@ -9,6 +9,7 @@ describe('Key', () => {
     const button = screen.getByRole('button')
     const buttonStyle = getComputedStyle(button)
 
+    expect(button).toBeVisible()
     expect(button).toHaveTextContent(/hello/i)
     expect(buttonStyle.textTransform).toEqual('uppercase')
     expect(buttonStyle.fontSize).toEqual('12px')
