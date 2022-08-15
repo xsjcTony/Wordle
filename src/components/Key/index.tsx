@@ -1,13 +1,13 @@
 import clsx from 'clsx'
-import { useState } from 'react'
-import { KeyboardLetterState } from '@/constants'
 import useInput from '@/store/useInput'
+import useKeyState from '@/store/useKeyState'
 import styles from './index.module.scss'
+import type { Alphabet } from '@/constants'
 import type { ReactElement, MouseEventHandler } from 'react'
 
 
 interface KeyProps {
-  text: ReactElement | string
+  text: Alphabet | ReactElement | 'enter'
   wide?: boolean
   onClick?: MouseEventHandler<HTMLButtonElement>
 }
@@ -16,9 +16,10 @@ interface KeyProps {
 const Key = ({ text, wide = false, onClick = void 0 }: KeyProps): JSX.Element => {
   console.log('Key rendered')
 
-  const [keyState, setKeyState] = useState<KeyboardLetterState>()
   const push = useInput(s => s.push)
 
+  // @ts-expect-error Have to call hook without condition thus the type of `text` cannot be guaranteed
+  const keyState = useKeyState(s => s.keyStateMap[text])
 
   const onClickHandler = onClick ?? ( // TODO: change later
     typeof text === 'string'
