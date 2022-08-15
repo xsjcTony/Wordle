@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { useState } from 'react'
-import { LetterState } from '@/components/Game'
+import { LetterState } from '@/components/Board'
 import useInput from '@/store/useInput'
 import styles from './index.module.scss'
 import type { ReactElement, MouseEventHandler } from 'react'

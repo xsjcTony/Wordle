@@ -1,6 +1,9 @@
-.game {
+.board {
     display: flex;
     flex: 1;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 10px;
+    gap: 5px;
 }
