@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { useState } from 'react'
-import { LetterState } from '@/components/Board'
+import { KeyboardLetterState } from '@/constants'
 import useInput from '@/store/useInput'
 import styles from './index.module.scss'
 import type { ReactElement, MouseEventHandler } from 'react'
@@ -16,7 +16,7 @@ interface KeyProps {
 const Key = ({ text, wide = false, onClick = void 0 }: KeyProps): JSX.Element => {
   console.log('Key rendered')
 
-  const [keyState, setKeyState] = useState<LetterState>()
+  const [keyState, setKeyState] = useState<KeyboardLetterState>()
   const push = useInput(s => s.push)
 
 
