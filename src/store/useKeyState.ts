@@ -1,4 +1,5 @@
 import create from 'zustand'
+import { immer } from 'zustand/middleware/immer'
 import { KeyboardLetterState } from '@/constants'
 import type { Alphabet } from '@/constants'
 
@@ -9,9 +10,9 @@ interface KeyState {
 }
 
 
-const useKeyState = create<KeyState>()(set => ({
+const useKeyState = create<KeyState>()(immer(set => ({
   keyStateMap: {},
-  setKeyState: (key: Alphabet, state: KeyboardLetterState) => void set(s => ({ keyStateMap: { ...s.keyStateMap, [key]: state } }))
-}))
+  setKeyState: (key: Alphabet, state: KeyboardLetterState) => void set(s => void (s.keyStateMap[key] = state))
+})))
 
 export default useKeyState
