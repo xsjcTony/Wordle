@@ -13,5 +13,6 @@ describe('BoardLetter', () => {
     expect(letter).toHaveTextContent(/a/i)
     expect(style.textTransform).toEqual('uppercase')
     expect(letter.dataset['state']).toEqual('empty')
+    expect(letter.dataset['animation']).toEqual('idle')
   })
 })

@@ -33,4 +33,50 @@
     &[data-state=correct] {
         background-color: var(--color-correct);
     }
+
+    // animations
+    @keyframes pop-in {
+        0% {
+            transform: scale(.8);
+            opacity: 0;
+        }
+        40% {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes flip-in {
+        0% {
+            transform: rotateX(0);
+        }
+        100% {
+            transform: rotateX(-90deg);
+        }
+    }
+
+    @keyframes flip-out {
+        0% {
+            transform: rotateX(-90deg);
+        }
+        100% {
+            transform: rotateX(0);
+        }
+    }
+
+    &[data-animation=pop] {
+        animation: pop-in .1s;
+    }
+
+    &[data-animation=flip-in] {
+        animation: flip-in .25s ease-in;
+    }
+
+    &[data-animation=flip-out] {
+        animation: flip-out .25s ease-in;
+    }
 }

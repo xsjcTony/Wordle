@@ -36,5 +36,8 @@ export default defineConfig({
     },
     setupFiles: ['./src/test/setup.ts'],
     environment: 'jsdom'
+  },
+  esbuild: {
+    legalComments: 'none'
   }
 })
