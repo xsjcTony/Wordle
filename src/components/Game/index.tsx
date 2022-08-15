@@ -1,6 +1,22 @@
+import useInput from '@/store/useInput'
 import styles from './index.module.scss'
 
 
-const Game = (): JSX.Element => <div className={styles.game}>Game</div>
+export const enum LetterState {
+  absent = 'absent',
+  present = 'present',
+  correct = 'correct'
+}
+
+
+const Game = (): JSX.Element => {
+  const input = useInput(s => s.input)
+
+  return (
+    <div className={styles.game}>
+      <input readOnly type="text" value={input} />
+    </div>
+  )
+}
 
 export default Game
