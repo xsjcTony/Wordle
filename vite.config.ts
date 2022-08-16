@@ -1,5 +1,6 @@
 /// <reference types="vitest" />
 
+import nyc from '@istanbuljs/schema'
 import eslintPlugin from '@nabla/vite-plugin-eslint'
 import react from '@vitejs/plugin-react'
 import autoprefixer from 'autoprefixer'
@@ -32,7 +33,8 @@ export default defineConfig({
   },
   test: {
     coverage: {
-      reporter: ['text', 'html']
+      reporter: ['text', 'html'],
+      exclude: [...nyc.defaults.nyc.exclude, '**/constants/**']
     },
     setupFiles: ['./src/test/setup.ts'],
     environment: 'jsdom'

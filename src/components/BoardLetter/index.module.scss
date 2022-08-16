@@ -2,23 +2,22 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    width: 62px;
+    width: 100%;
     box-sizing: border-box;
-    text-transform: uppercase;
-    aspect-ratio: 1;
-    font-size: 2rem;
     color: var(--tile-text-color);
-    user-select: none;
+    font-size: 2rem;
     font-weight: 700;
-    transition: color .25s, border-color .25s, background-color .25s;
+    text-transform: uppercase;
+    user-select: none;
+    aspect-ratio: 1;
 
     &[data-state=empty] {
         border: 2px solid var(--color-tone-4);
     }
 
     &[data-state=tbd] {
-        background-color: var(--color-tone-7);
         border: 2px solid var(--color-tone-3);
+        background-color: var(--color-tone-7);
         color: var(--color-tone-1);
     }
 
