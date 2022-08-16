@@ -4,15 +4,14 @@ import BoardLetter from './'
 
 
 describe('BoardLetter', () => {
-  it('Renders correct letter with uppercase', () => {
-    render(<BoardLetter letter='a' />)
-    const letter = screen.getByText(/a/i)
+  it('Renders with uppercase and empty state initially', () => {
+    render(<BoardLetter />)
+
+    const letter = screen.getByLabelText('guessed letter')
     const style = getComputedStyle(letter)
 
     expect(letter).toBeVisible()
-    expect(letter).toHaveTextContent(/a/i)
     expect(style.textTransform).toEqual('uppercase')
     expect(letter.dataset['state']).toEqual('empty')
-    expect(letter.dataset['animation']).toEqual('idle')
   })
 })

@@ -61,6 +61,8 @@ const BoardLetter = forwardRef<BoardLetterRef>((_, ref): JSX.Element => {
   return (
     <div
       ref={divRef}
+      aria-label="guessed letter"
+      aria-roledescription="Display of guessed letter"
       className={styles.boardLetter}
       data-state={letterState}
     />

@@ -1,6 +1,6 @@
 /// <reference types="vitest" />
 
-import nyc from '@istanbuljs/schema'
+import c8DefaultExclude from '@istanbuljs/schema/default-exclude.js'
 import eslintPlugin from '@nabla/vite-plugin-eslint'
 import react from '@vitejs/plugin-react'
 import autoprefixer from 'autoprefixer'
@@ -34,7 +34,7 @@ export default defineConfig({
   test: {
     coverage: {
       reporter: ['text', 'html'],
-      exclude: [...nyc.defaults.nyc.exclude, '**/constants/**']
+      exclude: [...c8DefaultExclude, '**/constants/**']
     },
     setupFiles: ['./src/test/setup.ts'],
     environment: 'jsdom'

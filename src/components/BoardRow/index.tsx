@@ -14,7 +14,11 @@ const BoardRow = (): JSX.Element => {
   return (
     <div className={styles.boardRow}>
       {new Array(WORD_LENGTH).fill(void 0).map((_, i) => (
-        <div key={i} className={styles.boardLetterContainer}>
+        <div
+          key={i}
+          className={styles.boardLetterContainer}
+          style={{ '--delay': `.${i}s` }}
+        >
           <BoardLetter ref={ref => letterRefs.current[i] = ref} />
         </div>
       ))}
