@@ -11,7 +11,8 @@
         animation-delay: var(--delay);
 
         &.board-row-win {
-            animation: bounce 1s;
+            animation-name: bounce;
+            animation-duration: 1s;
         }
     }
 
