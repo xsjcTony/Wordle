@@ -14,9 +14,9 @@ export const POP_IN: PropertyIndexedKeyframes = {
 }
 
 export const FLIP_IN: PropertyIndexedKeyframes = {
-  transform: [0, '-90deg'].map(angle => `rotate(${angle})`)
+  transform: [0, '-90deg'].map(angle => `rotateX(${angle})`)
 }
 
 export const FLIP_OUT: PropertyIndexedKeyframes = {
-  transform: ['-90deg', 0].map(angle => `rotate(${angle})`)
+  transform: ['-90deg', 0].map(angle => `rotateX(${angle})`)
 }
