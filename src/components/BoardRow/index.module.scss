@@ -2,13 +2,21 @@
     display: flex;
     gap: 5px;
 
+    &.board-row-invalid {
+        animation: shake .6s; // TODO: delete all animation later
+    }
+
     .board-letter-container {
         width: 62px;
+
+        &.board-row-win {
+            animation: bounce 1s;
+        }
     }
 
 
     // animations
-    @keyframes bounce {
+    @keyframes bounce { // TODO: delete all keyframes later
         0%, 20% {
             transform: translateY(0);
         }

@@ -14,8 +14,6 @@ interface KeyProps {
 
 
 const Key = ({ text, wide = false, onClick = void 0 }: KeyProps): JSX.Element => {
-  console.log('Key rendered')
-
   const push = useInput(s => s.push)
 
   // @ts-expect-error Have to call hook without condition thus the type of `text` cannot be guaranteed
