@@ -17,7 +17,6 @@ interface GameStateData {
 
 interface GameStateAction {
   evaluate: (word: string, result: BoardLetterState[]) => void
-  setSolution: (solution: string) => void
   setGameStatus: (status: GameStatus) => void
   resetState: () => void
 }
@@ -49,23 +48,22 @@ const useGameState = create<GameState>()(persist(immer(set => ({
       state.currentRowIndex += 1
     })
   },
-  setSolution: (solution: string) => {
-    set({ solution })
-  },
-  setGameStatus: (status: GameStatus) => {
-    set({ gameStatus: status })
-  },
-  resetState: () => void set({ ...initialState, solution: '' }) // TODO: change solution to generator function
+  setGameStatus: (status: GameStatus) => void set({ gameStatus: status }),
+  resetState: () => void set({ ...initialState, solution: '' }) // TODO: change solution to generator
 })), {
   name: 'game-state',
   getStorage: () => localStorage,
-  partialize: state => ({
-    gameState: state.gameStatus,
-    solution: state.solution,
-    boardState: state.boardState,
-    evaluations: state.evaluations,
-    currentRowIndex: state.currentRowIndex
-  })
+  partialize: (state) => {
+    const { gameStatus, solution, boardState, evaluations, currentRowIndex } = state
+
+    return {
+      gameStatus,
+      solution,
+      boardState,
+      evaluations,
+      currentRowIndex
+    }
+  }
 }))
 
 export default useGameState
