@@ -3,13 +3,13 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    height: 100%;
     box-sizing: border-box;
     color: var(--tile-text-color);
     font-size: 2rem;
     font-weight: 700;
     text-transform: uppercase;
     user-select: none;
-    aspect-ratio: 1;
 
     &[data-state=empty] {
         border: 2px solid var(--color-tone-4);

@@ -1,12 +1,11 @@
 import { ReactComponent as Backspace } from '@/assets/images/backspace.svg'
 import Key from '@/components/Key'
 import { FIRST_ROW, SECOND_ROW, THIRD_ROW } from '@/constants'
-import useInput from '@/store/useInput'
 import styles from './index.module.scss'
 
 
 const Keyboard = (): JSX.Element => {
-  const pop = useInput(s => s.pop)
+  // const pop = useInput(s => s.pop)
 
   return (
     <div className={styles.keyboard}>
@@ -21,7 +20,7 @@ const Keyboard = (): JSX.Element => {
       <div className={styles.keyboardRow}>
         <Key wide text="enter" />
         {THIRD_ROW.map(letter => <Key key={letter} text={letter} />)}
-        <Key wide text={<Backspace />} onClick={pop} />
+        <Key wide text={<Backspace />} onClick={void 0} />
       </div>
     </div>
   )

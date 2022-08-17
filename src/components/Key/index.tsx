@@ -1,5 +1,4 @@
 import clsx from 'clsx'
-import useInput from '@/store/useInput'
 import useKeyState from '@/store/useKeyState'
 import styles from './index.module.scss'
 import type { Alphabet } from '@/constants'
@@ -14,16 +13,12 @@ interface KeyProps {
 
 
 const Key = ({ text, wide = false, onClick = void 0 }: KeyProps): JSX.Element => {
-  const push = useInput(s => s.push)
-
   // @ts-expect-error Have to call hook without condition thus the type of `text` cannot be guaranteed
   const keyState = useKeyState(s => s.keyStateMap[text])
 
-  const onClickHandler = onClick ?? ( // TODO: change later
-    typeof text === 'string'
-      ? () => void push(text)
-      : void 0
-  )
+  const onClickHandler = onClick ?? ((): void => {
+    return void 0 // TODO: insert letter to board
+  })
 
   return (
     <button

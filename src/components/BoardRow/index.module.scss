@@ -8,6 +8,7 @@
 
     .board-letter-container {
         width: 62px;
+        height: 62px;
         animation-delay: var(--delay);
 
         &.board-row-win {
