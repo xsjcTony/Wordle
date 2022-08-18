@@ -256,10 +256,8 @@ module.exports = {
     // React Hooks
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': [
-      'error',
-      {
-        // additionalHooks: ''
-      }
+      'warn',
+      { additionalHooks: 'useAsyncEffect' }
     ],
 
 

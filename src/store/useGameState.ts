@@ -1,24 +1,37 @@
 import create from 'zustand'
 import { persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
-import { BoardLetterState, GameStatus, GUESS_CHANCE } from '@/constants'
+import { BoardLetterState, GameStatus, GUESS_CHANCE, WORD_LENGTH } from '@/constants'
+import type { Alphabet } from '@/constants'
+import type { Tuple } from '@/utils/types'
 
 
 /**
  * Types
  */
+type BoardState = Tuple<string, typeof GUESS_CHANCE>
+
+type Evaluation = Tuple<BoardLetterState, typeof WORD_LENGTH>
+
+type Evaluations = Tuple<Evaluation, typeof GUESS_CHANCE>
+
 interface GameStateData {
   gameStatus: GameStatus
   solution: string
-  boardState: string[]
-  evaluations: BoardLetterState[][]
+  boardState: BoardState
+  evaluations: Evaluations
   currentRowIndex: number
+  currentWord: Alphabet[]
+  evaluating: boolean
 }
 
 interface GameStateAction {
-  evaluate: (word: string, result: BoardLetterState[]) => void
+  setEvaluateResult: (word: string, result: Evaluation) => void
   setGameStatus: (status: GameStatus) => void
   resetState: () => void
+  insertLetter: (letter: Alphabet) => void
+  removeLetter: () => void
+  startEvaluating: () => void
 }
 
 type GameState = GameStateAction & GameStateData
@@ -30,9 +43,11 @@ type GameState = GameStateAction & GameStateData
 const initialState: GameStateData = {
   gameStatus: GameStatus.inProgress,
   solution: '',
-  boardState: new Array(GUESS_CHANCE).fill(''),
-  evaluations: new Array(GUESS_CHANCE).fill([]),
-  currentRowIndex: 0
+  boardState: new Array<string>(GUESS_CHANCE).fill('') as BoardState,
+  evaluations: new Array(GUESS_CHANCE).fill([]) as Evaluations,
+  currentRowIndex: 0,
+  currentWord: [],
+  evaluating: false
 }
 
 
@@ -41,15 +56,27 @@ const initialState: GameStateData = {
  */
 const useGameState = create<GameState>()(persist(immer(set => ({
   ...initialState,
-  evaluate: (word: string, result: BoardLetterState[]) => {
+  setEvaluateResult: (word: string, result: Evaluation) => {
     set((state) => {
       state.boardState[state.currentRowIndex] = word
       state.evaluations[state.currentRowIndex] = result
       state.currentRowIndex += 1
+      state.evaluating = false
     })
   },
   setGameStatus: (status: GameStatus) => void set({ gameStatus: status }),
-  resetState: () => void set({ ...initialState, solution: '' }) // TODO: change solution to generator
+  resetState: () => void set({ ...initialState, solution: '' }), // TODO: change solution to generator
+  insertLetter: (letter: Alphabet) => void set((state) => {
+    if (state.currentWord.length !== 5) {
+      state.currentWord.push(letter)
+    }
+  }),
+  removeLetter: () => void set((state) => {
+    if (state.currentWord.length !== 0) {
+      state.currentWord.pop()
+    }
+  }),
+  startEvaluating: () => void set({ evaluating: true })
 })), {
   name: 'game-state',
   getStorage: () => localStorage,
