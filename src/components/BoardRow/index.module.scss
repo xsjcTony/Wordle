@@ -2,10 +2,6 @@
     display: flex;
     gap: 5px;
 
-    &.board-row-invalid {
-        animation: shake .6s; // TODO: delete all animation later
-    }
-
     .board-letter-container {
         width: 62px;
         height: 62px;
@@ -37,21 +33,6 @@
         }
         100% {
             transform: translateY(0);
-        }
-    }
-
-    @keyframes shake {
-        0%, 100% {
-            transform: translateX(0);
-        }
-        20%, 80% {
-            transform: translateX(2px);
-        }
-        30%, 50%, 70% {
-            transform: translateX(-4px);
-        }
-        40%, 60% {
-            transform: translateX(4px);
         }
     }
 }

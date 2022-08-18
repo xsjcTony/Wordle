@@ -26,12 +26,13 @@ interface GameStateData {
 }
 
 interface GameStateAction {
-  setEvaluateResult: (word: string, result: Evaluation) => void
+  setEvaluationResult: (word: string, result: Evaluation) => void
   setGameStatus: (status: GameStatus) => void
   resetState: () => void
   insertLetter: (letter: Alphabet) => void
   removeLetter: () => void
   startEvaluating: () => void
+  stopEvaluating: () => void
 }
 
 type GameState = GameStateAction & GameStateData
@@ -56,7 +57,7 @@ const initialState: GameStateData = {
  */
 const useGameState = create<GameState>()(persist(immer(set => ({
   ...initialState,
-  setEvaluateResult: (word: string, result: Evaluation) => {
+  setEvaluationResult: (word: string, result: Evaluation) => {
     set((state) => {
       state.boardState[state.currentRowIndex] = word
       state.evaluations[state.currentRowIndex] = result
@@ -76,7 +77,8 @@ const useGameState = create<GameState>()(persist(immer(set => ({
       state.currentWord.pop()
     }
   }),
-  startEvaluating: () => void set({ evaluating: true })
+  startEvaluating: () => void set({ evaluating: true }),
+  stopEvaluating: () => void set({ evaluating: false })
 })), {
   name: 'game-state',
   getStorage: () => localStorage,

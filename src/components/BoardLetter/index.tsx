@@ -32,11 +32,10 @@ const BoardLetter = forwardRef<BoardLetterRef, BoardLetterProps>((
         const divEl = divRef.current
         if (!divEl) return
 
-        const flipIn = divEl.animate(FLIP_IN, {
+        await divEl.animate(FLIP_IN, {
           duration: 250,
           easing: 'ease-in'
-        })
-        await flipIn.finished
+        }).finished
 
         setLetterState(state)
 
