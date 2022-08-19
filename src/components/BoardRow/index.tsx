@@ -11,6 +11,7 @@ import useGameState from '@/store/useGameState'
 import styles from './index.module.scss'
 import type { BoardLetterRef } from '@/components/BoardLetter'
 import type { Alphabet } from '@/utils/types'
+import evaluateWord from '@/utils/evaluation'
 
 
 /**
@@ -30,10 +31,11 @@ const BoardRow = ({ rowIndex }: BoardRowProps): JSX.Element => {
     currentWord,
     currentRowIndex,
     evaluating,
-    stopEvaluating
+    stopEvaluating,
+    solution
   } = useGameState(
-    ({ gameStatus, currentWord, currentRowIndex, evaluating, stopEvaluating }) =>
-      ({ gameStatus, currentWord, currentRowIndex, evaluating, stopEvaluating })
+    ({ gameStatus, currentWord, currentRowIndex, evaluating, stopEvaluating, solution }) =>
+      ({ gameStatus, currentWord, currentRowIndex, evaluating, stopEvaluating, solution })
   )
 
 
@@ -60,11 +62,13 @@ const BoardRow = ({ rowIndex }: BoardRowProps): JSX.Element => {
       return
     }
 
-    for (const letterRef of letterRefs.current) {
-      await letterRef?.changeState(BoardLetterState.present)
+    const evaluationResult = evaluateWord(word, solution)
+
+    for (let i = 0; i < letterRefs.current.length; i++) {
+      await letterRefs.current[i]?.changeState(evaluationResult[i])
     }
+
     stopEvaluating()
-    return
   }, [evaluating])
 
 

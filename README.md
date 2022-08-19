@@ -1,7 +1,6 @@
 # A duplication of Wordle
 ## Author: Aelita (Tony Jiang)
 
----
 
 ### Tech stack:
 - React 18
