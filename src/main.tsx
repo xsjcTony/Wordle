@@ -12,7 +12,7 @@ import eruda from 'eruda' // TODO: remove on production
 eruda.init() // TODO: remove on production
 
 
-createRoot(document.body).render(
+createRoot(document.querySelector('#app') as HTMLDivElement).render(
   <StrictMode>
     <ErrorBoundary FallbackComponent={ErrorBoundaryFallback}>
       <App />

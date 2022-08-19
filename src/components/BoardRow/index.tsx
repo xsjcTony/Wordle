@@ -1,4 +1,5 @@
 /* eslint-disable react/no-array-index-key */
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import { useAsyncEffect } from 'ahooks'
 import clsx from 'clsx'
@@ -35,16 +36,19 @@ const BoardRow = ({ rowIndex }: BoardRowProps): JSX.Element => {
       ({ gameStatus, currentWord, currentRowIndex, evaluating, stopEvaluating })
   )
 
+
   const initialWord = useGameState.getState().boardState[rowIndex] // 5-letter word or '' (empty string)
   // @ts-expect-error only Alphabet 5-letter word will be stored into boardState
   const [word, setWord] = useState<Alphabet[]>(initialWord.split(''))
 
-  const rowRef = useRef<HTMLDivElement>(null)
 
+  const rowRef = useRef<HTMLDivElement>(null)
   // eslint-disable-next-line @typescript-eslint/no-extra-parens
   const letterRefs = useRef<(BoardLetterRef | null)[]>([])
 
+
   useEffect(() => void (rowIndex === currentRowIndex && setWord(currentWord)), [currentWord])
+
 
   // evaluate word: Animation + GameState update
   useAsyncEffect(async () => {
@@ -62,6 +66,7 @@ const BoardRow = ({ rowIndex }: BoardRowProps): JSX.Element => {
     stopEvaluating()
     return
   }, [evaluating])
+
 
   return (
     <div ref={rowRef} className={styles.boardRow}>

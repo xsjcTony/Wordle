@@ -43,7 +43,7 @@ type GameState = GameStateAction & GameStateData
  */
 const initialState: GameStateData = {
   gameStatus: GameStatus.inProgress,
-  solution: '',
+  solution: 'humid',
   boardState: new Array<string>(GUESS_CHANCE).fill('') as BoardState,
   evaluations: new Array(GUESS_CHANCE).fill([]) as Evaluations,
   currentRowIndex: 0,

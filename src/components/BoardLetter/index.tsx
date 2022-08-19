@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/brace-style */
 
-import { forwardRef, memo, useEffect, useImperativeHandle, useRef, useState } from 'react'
+import { useUpdateEffect } from 'ahooks'
+import { forwardRef, memo, useImperativeHandle, useRef, useState } from 'react'
 import { BoardLetterState } from '@/constants'
 import { FLIP_IN, FLIP_OUT, POP_IN } from '@/constants/animations'
 import styles from './index.module.scss'
@@ -49,7 +50,7 @@ const BoardLetter = forwardRef<BoardLetterRef, BoardLetterProps>((
     })
   }), [])
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     // insert
     if (letter) {
       setLetterState(BoardLetterState.tbd)
