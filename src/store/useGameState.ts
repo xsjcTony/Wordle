@@ -42,7 +42,7 @@ type GameState = GameStateAction & GameStateData
  */
 const initialState: GameStateData = {
   gameStatus: GameStatus.inProgress,
-  solution: 'humid',
+  solution: 'humid', // TODO: change solution to generator
   boardState: new Array<string>(GUESS_CHANCE).fill('') as BoardState,
   evaluations: new Array(GUESS_CHANCE).fill([]) as Evaluations,
   currentRowIndex: 0,
