@@ -2,8 +2,7 @@ import create from 'zustand'
 import { persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
 import { BoardLetterState, GameStatus, GUESS_CHANCE, WORD_LENGTH } from '@/constants'
-import type { Alphabet } from '@/constants'
-import type { Tuple } from '@/utils/types'
+import type { Tuple, Alphabet } from '@/utils/types'
 
 
 /**
@@ -11,9 +10,9 @@ import type { Tuple } from '@/utils/types'
  */
 type BoardState = Tuple<string, typeof GUESS_CHANCE>
 
-type Evaluation = Tuple<BoardLetterState, typeof WORD_LENGTH>
+export type EvaluationResult = Tuple<BoardLetterState, typeof WORD_LENGTH>
 
-type Evaluations = Tuple<Evaluation, typeof GUESS_CHANCE>
+type Evaluations = Tuple<EvaluationResult, typeof GUESS_CHANCE>
 
 interface GameStateData {
   gameStatus: GameStatus
@@ -26,7 +25,7 @@ interface GameStateData {
 }
 
 interface GameStateAction {
-  setEvaluationResult: (word: string, result: Evaluation) => void
+  setEvaluationResult: (word: string, result: EvaluationResult) => void
   setGameStatus: (status: GameStatus) => void
   resetState: () => void
   insertLetter: (letter: Alphabet) => void
@@ -57,7 +56,7 @@ const initialState: GameStateData = {
  */
 const useGameState = create<GameState>()(persist(immer(set => ({
   ...initialState,
-  setEvaluationResult: (word: string, result: Evaluation) => {
+  setEvaluationResult: (word: string, result: EvaluationResult) => {
     set((state) => {
       state.boardState[state.currentRowIndex] = word
       state.evaluations[state.currentRowIndex] = result

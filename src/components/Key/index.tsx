@@ -1,9 +1,10 @@
 import clsx from 'clsx'
-import { GameStatus, isAlphabet } from '@/constants'
+import { GameStatus } from '@/constants'
 import useGameState from '@/store/useGameState'
 import useKeyState from '@/store/useKeyState'
+import { isAlphabet } from '@/utils/types'
 import styles from './index.module.scss'
-import type { Alphabet } from '@/constants'
+import type { Alphabet } from '@/utils/types'
 import type { ReactElement, MouseEventHandler } from 'react'
 
 

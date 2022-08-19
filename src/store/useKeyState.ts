@@ -1,7 +1,7 @@
 import create from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 import { KeyboardLetterState } from '@/constants'
-import type { Alphabet } from '@/constants'
+import type { Alphabet } from '@/utils/types'
 
 
 interface KeyState {

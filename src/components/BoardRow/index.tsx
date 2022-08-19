@@ -10,7 +10,7 @@ import { SHAKE } from '@/constants/animations'
 import useGameState from '@/store/useGameState'
 import styles from './index.module.scss'
 import type { BoardLetterRef } from '@/components/BoardLetter'
-import type { Alphabet } from '@/constants'
+import type { Alphabet } from '@/utils/types'
 
 
 /**

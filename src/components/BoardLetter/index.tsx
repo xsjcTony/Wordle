@@ -5,7 +5,7 @@ import { forwardRef, memo, useImperativeHandle, useRef, useState } from 'react'
 import { BoardLetterState } from '@/constants'
 import { FLIP_IN, FLIP_OUT, POP_IN } from '@/constants/animations'
 import styles from './index.module.scss'
-import type { Alphabet } from '@/constants'
+import type { Alphabet } from '@/utils/types'
 
 
 export interface BoardLetterRef {
