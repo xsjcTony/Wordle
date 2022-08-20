@@ -1,10 +1,19 @@
 import userEvent from '@testing-library/user-event'
-import { expect, describe, it } from 'vitest'
+import { expect, describe, it, afterEach } from 'vitest'
+import useDarkMode from '@/store/useDarkMode'
+import useKeyState from '@/store/useKeyState'
 import { render, screen } from '@/test/utils'
 import Header from './'
 
 
 describe('Header', () => {
+  // reset store after each test case
+  const initialState = useKeyState.getState()
+  afterEach(() => {
+    useKeyState.setState(initialState, true)
+  })
+
+
   it(`Aelita's logo is visible`, () => {
     render(<Header />)
     expect(screen.getByAltText(/Aelita's Logo/i)).toBeVisible()
@@ -29,27 +38,15 @@ describe('Header', () => {
   })
 
   it('Click icon to toggle dark mode', async () => {
-    const { baseElement } = render(<Header />)
+    useDarkMode.setState({ darkMode: true })
+
+    render(<Header />)
     const icon = screen.getByRole('button')
 
-    expect(baseElement).not.toHaveClass('dark')
+    expect(useDarkMode.getState().darkMode).toBeTruthy()
     await userEvent.click(icon)
-    expect(baseElement).toHaveClass('dark')
+    expect(useDarkMode.getState().darkMode).toBeFalsy()
     await userEvent.click(icon)
-    expect(baseElement).not.toHaveClass('dark')
-  })
-
-  it('Get and set dark mode status from / into local storage', async () => {
-    // make dark-mode to be true in Local Storage
-    window.localStorage.setItem('dark-mode', 'true')
-
-    const { baseElement } = render(<Header />)
-    expect(baseElement).toHaveClass('dark')
-
-    await userEvent.click(screen.getByRole('button'))
-    expect(window.localStorage.getItem('dark-mode')).toBe('false')
-
-    // clean up
-    window.localStorage.removeItem('dark-mode')
+    expect(useDarkMode.getState().darkMode).toBeTruthy()
   })
 })

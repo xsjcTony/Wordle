@@ -6,6 +6,7 @@ import { ErrorBoundary } from 'react-error-boundary'
 import ErrorBoundaryFallback from '@/components/ErrorBoundaryFallback'
 import App from '@/App'
 import '@/assets/css/global.css'
+import 'react-toastify/dist/ReactToastify.css'
 import eruda from 'eruda' // TODO: remove on production
 
 

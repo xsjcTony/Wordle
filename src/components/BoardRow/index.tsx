@@ -3,15 +3,16 @@
 
 import { useAsyncEffect } from 'ahooks'
 import clsx from 'clsx'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { toast } from 'react-toastify'
 import BoardLetter from '@/components/BoardLetter'
 import { BoardLetterState, GameStatus, WORD_LENGTH } from '@/constants'
 import { SHAKE } from '@/constants/animations'
 import useGameState from '@/store/useGameState'
+import evaluateWord from '@/utils/evaluation'
 import styles from './index.module.scss'
 import type { BoardLetterRef } from '@/components/BoardLetter'
 import type { Alphabet } from '@/utils/types'
-import evaluateWord from '@/utils/evaluation'
 
 
 /**
@@ -47,6 +48,12 @@ const BoardRow = ({ rowIndex }: BoardRowProps): JSX.Element => {
   const rowRef = useRef<HTMLDivElement>(null)
   // eslint-disable-next-line @typescript-eslint/no-extra-parens
   const letterRefs = useRef<(BoardLetterRef | null)[]>([])
+  const getLetterRefs = useCallback((ref: BoardLetterRef | null) => {
+    if (letterRefs.current.length === WORD_LENGTH) {
+      letterRefs.current = []
+    }
+    letterRefs.current.push(ref)
+  }, [])
 
 
   useEffect(() => void (rowIndex === currentRowIndex && setWord(currentWord)), [currentWord])
@@ -57,6 +64,7 @@ const BoardRow = ({ rowIndex }: BoardRowProps): JSX.Element => {
     if (rowIndex !== currentRowIndex || !evaluating) return
 
     if (word.length !== WORD_LENGTH) {
+      toast('Not enough letter')
       await rowRef.current?.animate(SHAKE, 600).finished
       stopEvaluating()
       return
@@ -80,7 +88,7 @@ const BoardRow = ({ rowIndex }: BoardRowProps): JSX.Element => {
           className={clsx(styles.boardLetterContainer, gameStatus === GameStatus.win && styles.boardRowWin)}
           style={{ '--delay': `.${i}s` }}
         >
-          <BoardLetter ref={ref => void (letterRefs.current[i] = ref)} letter={word[i]} />
+          <BoardLetter ref={getLetterRefs} letter={word[i]} />
         </div>
       ))}
     </div>
