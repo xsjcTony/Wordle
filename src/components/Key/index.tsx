@@ -28,7 +28,7 @@ const Key = ({ text, wide = false, onClick = void 0 }: KeyProps): JSX.Element =>
       ({ evaluating, gameStatus, insertLetter })
   )
 
-  const onClickHandler = gameStatus === GameStatus.win || evaluating
+  const onClickHandler = gameStatus !== GameStatus.inProgress || evaluating
     ? void 0
     : onClick ?? (
       isAlphabet(text)

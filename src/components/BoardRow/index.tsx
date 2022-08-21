@@ -9,12 +9,12 @@ import BoardLetter from '@/components/BoardLetter'
 import { BoardLetterState, GameStatus, WORD_LENGTH } from '@/constants'
 import { SHAKE } from '@/constants/animations'
 import useGameState from '@/store/useGameState'
+import useKeyState from '@/store/useKeyState'
 import { compareFlatArray, validateWord } from '@/utils'
 import evaluateWord from '@/utils/evaluation'
 import styles from './index.module.scss'
 import type { BoardLetterRef } from '@/components/BoardLetter'
 import type { Alphabet } from '@/utils/types'
-import useKeyState from '@/store/useKeyState'
 
 
 /**

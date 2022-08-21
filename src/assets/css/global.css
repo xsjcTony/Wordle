@@ -105,7 +105,7 @@ ul {
     --key-bg-present: var(--color-present);
     --key-bg-correct: var(--color-correct);
     --key-bg-absent: var(--color-absent);
-    --title-background: linear-gradient(315deg,#42d392 25%,#647eff);
+    --title-background: linear-gradient(315deg,#42d392 25%,#647eff); /* From vuejs.org */
 }
 
 .dark {
@@ -137,7 +137,7 @@ ul {
     --key-bg-present: var(--color-present);
     --key-bg-correct: var(--color-correct);
     --key-bg-absent: var(--color-absent);
-    --title-background: linear-gradient(300deg, #93f5ec 20%, #a77bf3 70%);
+    --title-background: linear-gradient(300deg, #93f5ec 20%, #a77bf3 70%); /* From Github Copilot */
 }
 
 @media screen and (min-width: 415px) {
