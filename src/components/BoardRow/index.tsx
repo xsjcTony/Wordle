@@ -64,7 +64,7 @@ const BoardRow = ({ rowIndex }: BoardRowProps): JSX.Element => {
     if (rowIndex !== currentRowIndex || !evaluating) return
 
     if (word.length !== WORD_LENGTH) {
-      toast('Not enough letter')
+      toast('Not enough letters')
       await rowRef.current?.animate(SHAKE, 600).finished
       stopEvaluating()
       return

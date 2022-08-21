@@ -7,16 +7,25 @@
     margin-inline: auto;
 }
 
-.toast {
-    width: max-content;
-    min-height: auto !important;
-    margin-inline: auto;
+.toast-container {
+    top: 61px !important;
+    padding: 0 !important;
+    width: auto !important;
 
-    .toast-body {
-        margin: 0;
-        padding: 5px;
-        font-size: 14px;
-        font-weight: 700;
-        text-align: center;
+    .toast {
+        width: max-content;
+        min-height: auto !important;
+        user-select: none;
+        cursor: auto !important;
+        margin: 0 auto 1rem !important;
+        border-radius: 4px !important;
+
+        .toast-body {
+            margin: 0;
+            padding: 5px;
+            font-size: 14px;
+            font-weight: 700;
+            text-align: center;
+        }
     }
 }

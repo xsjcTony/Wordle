@@ -33,6 +33,27 @@ ul {
 }
 
 
+/* Toast transition */
+.no-animation {
+    animation: no-animation;
+}
+
+.fade-out {
+    animation: fadeOut .3s cubic-bezier(.645, .045, .355, 1) both;
+}
+
+@keyframes no-animation {}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+
 /* css variables */
 :root {
     --header-height: 40px;
