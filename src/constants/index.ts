@@ -26,3 +26,13 @@ export const enum GameStatus {
   win = 'WIN',
   fail = 'FAIL'
 }
+
+// Prompt
+export const winPrompt = [
+  'Genius',
+  'Magnificent',
+  'Impressive',
+  'Splendid',
+  'Great',
+  'Phew'
+]

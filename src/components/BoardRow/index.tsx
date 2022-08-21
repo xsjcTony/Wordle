@@ -6,7 +6,7 @@ import clsx from 'clsx'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 import BoardLetter from '@/components/BoardLetter'
-import { BoardLetterState, GameStatus, WORD_LENGTH } from '@/constants'
+import { BoardLetterState, GameStatus, GUESS_CHANCE, WORD_LENGTH, winPrompt } from '@/constants'
 import { SHAKE } from '@/constants/animations'
 import useGameState from '@/store/useGameState'
 import useKeyState from '@/store/useKeyState'
@@ -90,13 +90,22 @@ const BoardRow = ({ rowIndex }: BoardRowProps): JSX.Element => {
       await letterRefs.current[i]?.changeState(evaluationResult[i])
     }
 
-    if (compareFlatArray(evaluationResult, new Array(WORD_LENGTH).fill(BoardLetterState.correct))) {
+    // win
+    const win = compareFlatArray(evaluationResult, new Array(WORD_LENGTH).fill(BoardLetterState.correct))
+    if (win) {
       setGameStatus(GameStatus.win)
+      toast(winPrompt[currentRowIndex], { autoClose: 2000 })
 
       setWin(true)
       setTimeout(() => {
         setWin(false)
       }, 2000) // should be 1400, but in case of client lagging
+    }
+
+    // fail
+    if (!win && currentRowIndex === GUESS_CHANCE - 1) {
+      setGameStatus(GameStatus.fail)
+      toast(solution.toUpperCase(), { autoClose: false })
     }
 
     setEvaluationResult(word, evaluationResult)

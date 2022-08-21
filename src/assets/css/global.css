@@ -151,3 +151,9 @@ ul {
         --header-padding-x: 20px;
     }
 }
+
+
+/* Toastify */
+:root {
+    --toastify-text-color-light: var(--color-tone-7);
+}
