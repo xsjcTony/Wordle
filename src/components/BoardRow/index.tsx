@@ -14,6 +14,7 @@ import evaluateWord from '@/utils/evaluation'
 import styles from './index.module.scss'
 import type { BoardLetterRef } from '@/components/BoardLetter'
 import type { Alphabet } from '@/utils/types'
+import useKeyState from '@/store/useKeyState'
 
 
 /**
@@ -41,6 +42,7 @@ const BoardRow = ({ rowIndex }: BoardRowProps): JSX.Element => {
 
     return { currentWord, currentRowIndex, evaluating, stopEvaluating, solution, setEvaluationResult, setGameStatus }
   })
+  const setKeyState = useKeyState(s => s.setKeyState)
 
 
   const initialWord = useGameState.getState().boardState[rowIndex] // 5-letter word or '' (empty string)
@@ -98,6 +100,11 @@ const BoardRow = ({ rowIndex }: BoardRowProps): JSX.Element => {
     }
 
     setEvaluationResult(word, evaluationResult)
+
+    evaluationResult.forEach((state, i) => {
+      // @ts-expect-error Evaluation result can be assigned to KeyboardLetterState for sure
+      setKeyState(word[i], state)
+    })
   }, [evaluating])
 
 
