@@ -18,7 +18,7 @@ const App = (): JSX.Element => {
   const darkMode = useDarkMode(s => s.darkMode)
 
   useEffect(() => {
-    document.querySelector('html')?.classList.toggle('dark', darkMode)
+    document.documentElement.classList.toggle('dark', darkMode)
   }, [darkMode])
 
   return (

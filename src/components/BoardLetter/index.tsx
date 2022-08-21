@@ -21,7 +21,7 @@ const BoardLetter = forwardRef<BoardLetterRef, BoardLetterProps>((
   { letter },
   ref
 ): JSX.Element => {
-  const [letterState, setLetterState] = useState<BoardLetterState>(BoardLetterState.empty)
+  const [letterState, setLetterState] = useState<BoardLetterState>(letter ? BoardLetterState.tbd : BoardLetterState.empty)
 
   const divRef = useRef<HTMLDivElement>(null)
 

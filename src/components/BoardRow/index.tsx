@@ -9,11 +9,11 @@ import BoardLetter from '@/components/BoardLetter'
 import { BoardLetterState, GameStatus, WORD_LENGTH } from '@/constants'
 import { SHAKE } from '@/constants/animations'
 import useGameState from '@/store/useGameState'
+import { compareFlatArray, validateWord } from '@/utils'
 import evaluateWord from '@/utils/evaluation'
 import styles from './index.module.scss'
 import type { BoardLetterRef } from '@/components/BoardLetter'
 import type { Alphabet } from '@/utils/types'
-import { validateWord } from '@/utils'
 
 
 /**
@@ -29,21 +29,24 @@ interface BoardRowProps {
  */
 const BoardRow = ({ rowIndex }: BoardRowProps): JSX.Element => {
   const {
-    gameStatus,
     currentWord,
     currentRowIndex,
     evaluating,
     stopEvaluating,
-    solution
-  } = useGameState(
-    ({ gameStatus, currentWord, currentRowIndex, evaluating, stopEvaluating, solution }) =>
-      ({ gameStatus, currentWord, currentRowIndex, evaluating, stopEvaluating, solution })
-  )
+    solution,
+    setEvaluationResult,
+    setGameStatus
+  } = useGameState((state) => {
+    const { currentWord, currentRowIndex, evaluating, stopEvaluating, solution, setEvaluationResult, setGameStatus } = state
+
+    return { currentWord, currentRowIndex, evaluating, stopEvaluating, solution, setEvaluationResult, setGameStatus }
+  })
 
 
   const initialWord = useGameState.getState().boardState[rowIndex] // 5-letter word or '' (empty string)
   // @ts-expect-error only Alphabet 5-letter word will be stored into boardState
   const [word, setWord] = useState<Alphabet[]>(initialWord.split(''))
+  const [win, setWin] = useState<boolean>(false)
 
 
   const rowRef = useRef<HTMLDivElement>(null)
@@ -61,22 +64,23 @@ const BoardRow = ({ rowIndex }: BoardRowProps): JSX.Element => {
 
 
   // evaluate word: Animation + GameState update
+  const _validateWord = useCallback(async (condition: boolean, message: string): Promise<boolean> => {
+    if (condition) {
+      toast(message)
+      await rowRef.current?.animate(SHAKE, 600).finished
+      stopEvaluating()
+    }
+
+    return condition
+  }, [])
+
   useAsyncEffect(async () => {
-    if (rowIndex !== currentRowIndex || !evaluating) return
-
-    if (word.length !== WORD_LENGTH) {
-      toast('Not enough letters')
-      await rowRef.current?.animate(SHAKE, 600).finished
-      stopEvaluating()
-      return
-    }
-
-    if (!validateWord(word)) {
-      toast('Not in word list')
-      await rowRef.current?.animate(SHAKE, 600).finished
-      stopEvaluating()
-      return
-    }
+    if (
+      rowIndex !== currentRowIndex
+      || !evaluating
+      || await _validateWord(word.length !== WORD_LENGTH, 'Not enough letters')
+      || await _validateWord(!validateWord(word), 'Not in word list')
+    ) return
 
     const evaluationResult = evaluateWord(word, solution)
 
@@ -84,7 +88,16 @@ const BoardRow = ({ rowIndex }: BoardRowProps): JSX.Element => {
       await letterRefs.current[i]?.changeState(evaluationResult[i])
     }
 
-    stopEvaluating()
+    if (compareFlatArray(evaluationResult, new Array(WORD_LENGTH).fill(BoardLetterState.correct))) {
+      setGameStatus(GameStatus.win)
+
+      setWin(true)
+      setTimeout(() => {
+        setWin(false)
+      }, 2000) // should be 1400, but in case of client lagging
+    }
+
+    setEvaluationResult(word, evaluationResult)
   }, [evaluating])
 
 
@@ -93,7 +106,7 @@ const BoardRow = ({ rowIndex }: BoardRowProps): JSX.Element => {
       {new Array(WORD_LENGTH).fill(void 0).map((_, i) => (
         <div
           key={i}
-          className={clsx(styles.boardLetterContainer, gameStatus === GameStatus.win && styles.boardRowWin)}
+          className={clsx(styles.boardLetterContainer, win && styles.boardRowWin)}
           style={{ '--delay': `.${i}s` }}
         >
           <BoardLetter ref={getLetterRefs} letter={word[i]} />

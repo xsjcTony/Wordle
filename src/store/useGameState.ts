@@ -2,7 +2,7 @@ import create from 'zustand'
 import { persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
 import { BoardLetterState, GameStatus, GUESS_CHANCE, WORD_LENGTH } from '@/constants'
-import type { Tuple, Alphabet } from '@/utils/types'
+import type { Alphabet, Tuple } from '@/utils/types'
 
 
 /**
@@ -25,7 +25,7 @@ interface GameStateData {
 }
 
 interface GameStateAction {
-  setEvaluationResult: (word: string, result: EvaluationResult) => void
+  setEvaluationResult: (word: Alphabet[], result: EvaluationResult) => void
   setGameStatus: (status: GameStatus) => void
   resetState: () => void
   insertLetter: (letter: Alphabet) => void
@@ -56,11 +56,12 @@ const initialState: GameStateData = {
  */
 const useGameState = create<GameState>()(persist(immer(set => ({
   ...initialState,
-  setEvaluationResult: (word: string, result: EvaluationResult) => {
+  setEvaluationResult: (word: Alphabet[], result: EvaluationResult) => {
     set((state) => {
-      state.boardState[state.currentRowIndex] = word
+      state.boardState[state.currentRowIndex] = word.join('')
       state.evaluations[state.currentRowIndex] = result
       state.currentRowIndex += 1
+      state.currentWord = []
       state.evaluating = false
     })
   },
