@@ -13,6 +13,7 @@ import evaluateWord from '@/utils/evaluation'
 import styles from './index.module.scss'
 import type { BoardLetterRef } from '@/components/BoardLetter'
 import type { Alphabet } from '@/utils/types'
+import { validateWord } from '@/utils'
 
 
 /**
@@ -65,6 +66,13 @@ const BoardRow = ({ rowIndex }: BoardRowProps): JSX.Element => {
 
     if (word.length !== WORD_LENGTH) {
       toast('Not enough letters')
+      await rowRef.current?.animate(SHAKE, 600).finished
+      stopEvaluating()
+      return
+    }
+
+    if (!validateWord(word)) {
+      toast('Not in word list')
       await rowRef.current?.animate(SHAKE, 600).finished
       stopEvaluating()
       return
