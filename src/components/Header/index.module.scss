@@ -3,20 +3,26 @@
     justify-content: space-between;
     align-items: center;
     height: var(--header-height);
-    padding-inline: var(--header-padding-x);
-    color: var(--color-tone-1);
     border-bottom: 1px solid var(--color-tone-4);
-    transition: border-bottom-color .25s;
+    color: var(--color-tone-1);
     user-select: none;
+    transition: border-bottom-color .25s;
+    padding-inline: var(--header-padding-x);
 
     .title {
         flex: 1;
-        font-weight: 700;
         font-size: 28px;
-        pointer-events: none;
-        transition: color .25s;
+        font-weight: 700;
         white-space: nowrap;
+        transition: background-image .25s;
+        pointer-events: none;
         margin-inline: 13px;
+
+        span {
+            background-image: var(--title-background);
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
     }
 
     .header-left {
@@ -44,8 +50,8 @@
         }
 
         .title {
-            text-align: center;
             font-size: 32px;
+            text-align: center;
         }
     }
 }

@@ -17,7 +17,9 @@ const Header = (): JSX.Element => {
           <img alt="Wordle's logo" className={styles.logo} src={wordleLogo} />
         </a>
       </div>
-      <h1 className={styles.title}>Aelita&apos;s Wordle</h1>
+      <h1 className={styles.title}>
+        <span>Aelita&apos;s Wordle</span>
+      </h1>
       <div className={styles.headerRight}>
         {darkMode
           ? (
