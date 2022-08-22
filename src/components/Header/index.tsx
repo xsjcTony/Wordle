@@ -26,7 +26,9 @@ const Header = (): JSX.Element => {
   return (
     <header className={styles.header}>
       <div className={styles.headerLeft}>
-        <img alt="Aelita's logo" className={styles.logo} src={aelitaLogo} />
+        <a href="https://github.com/xsjcTony" rel="noreferrer" target="_blank">
+          <img alt="Aelita's logo" className={styles.logo} src={aelitaLogo} />
+        </a>
         <a href="https://www.nytimes.com/games/wordle/index.html" rel="noreferrer" target="_blank">
           <img alt="Wordle's logo" className={styles.logo} src={wordleLogo} />
         </a>

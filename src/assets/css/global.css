@@ -26,6 +26,15 @@ ul {
     list-style: none;
 }
 
+/**
+ * nyt-karnakcondensed font: Not for commercial use, just for duplication of Wordle game at
+ * https://www.nytimes.com/games/wordle/index.html
+ */
+@font-face {
+    font-family: nyt-karnakcondensed;
+    src: url('src/assets/fonts/karnakcondensed-normal-700.woff2') format('woff2');
+}
+
 
 /* App */
 #app {

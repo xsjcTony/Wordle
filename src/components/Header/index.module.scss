@@ -11,6 +11,7 @@
 
     .title {
         flex: 1;
+        font-family: nyt-karnakcondensed;
         font-size: 28px;
         font-weight: 700;
         white-space: nowrap;
@@ -36,8 +37,8 @@
 
     .header-right {
         display: flex;
-        align-items: center;
         justify-content: flex-end;
+        align-items: center;
         gap: 4px;
 
         svg {
@@ -46,13 +47,13 @@
         }
 
         .reset {
-            opacity: 0;
             visibility: hidden;
+            opacity: 0;
             transition: opacity .25s, visibility 0s .5s;
 
             &.show {
-                opacity: 1;
                 visibility: visible;
+                opacity: 1;
                 transition: opacity .5s, visibility 0s;
             }
         }
