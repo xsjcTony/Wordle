@@ -87,14 +87,15 @@ const useGameState = create<GameState>()(persist(immer(set => ({
   name: 'game-state',
   getStorage: () => localStorage,
   partialize: (state) => {
-    const { gameStatus, solution, boardState, evaluations, currentRowIndex } = state
+    const { gameStatus, solution, boardState, evaluations, currentRowIndex, currentWord } = state
 
     return {
       gameStatus,
       solution,
       boardState,
       evaluations,
-      currentRowIndex
+      currentRowIndex,
+      currentWord // For resetting the game after page reloads
     }
   }
 }))

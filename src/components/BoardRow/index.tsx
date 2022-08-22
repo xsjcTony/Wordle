@@ -61,7 +61,6 @@ const BoardRow = ({ rowIndex }: BoardRowProps): JSX.Element => {
     letterRefs.current.push(ref)
   }, [])
 
-
   useEffect(() => {
     // clear all words when game restart
     if (currentRowIndex === 0 && currentWord.length === 0) {
