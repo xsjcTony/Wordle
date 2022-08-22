@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import { useCallback } from 'react'
 import wordleLogo from '@/assets/images/wordle.ico'
 import aelitaLogo from '/favicon.png'
@@ -35,11 +36,10 @@ const Header = (): JSX.Element => {
       </h1>
       <div className={styles.headerRight}>
         <svg
-          className="icon"
+          className={clsx(styles.reset, gameStatus !== GameStatus.inProgress && styles.show)}
           fill="currentColor"
           height="26"
           role="button"
-          style={{ visibility: gameStatus === GameStatus.inProgress ? 'hidden' : 'visible' }}
           viewBox="0 0 1152 1024"
           width="26"
           xmlns="http://www.w3.org/2000/svg"

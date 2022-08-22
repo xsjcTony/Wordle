@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify'
 import create from 'zustand'
 import { persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
@@ -66,7 +67,10 @@ const useGameState = create<GameState>()(persist(immer(set => ({
     })
   },
   setGameStatus: (status: GameStatus) => void set({ gameStatus: status }),
-  restartGame: () => void set({ ...initialState, solution: 'humid' }), // TODO: change solution to generator
+  restartGame: () => {
+    toast.dismiss()
+    set({ ...initialState, solution: 'humid' })
+  }, // TODO: change solution to generator
   insertLetter: (letter: Alphabet) => void set((state) => {
     if (state.currentWord.length !== 5) {
       state.currentWord.push(letter)

@@ -101,7 +101,7 @@ const BoardRow = ({ rowIndex }: BoardRowProps): JSX.Element => {
     const win = compareFlatArray(evaluationResult, new Array(WORD_LENGTH).fill(BoardLetterState.correct))
     if (win) {
       setGameStatus(GameStatus.win)
-      toast(winPrompt[currentRowIndex], { autoClose: 2000 })
+      toast(winPrompt[currentRowIndex], { autoClose: false })
 
       setWin(true)
       setTimeout(() => {

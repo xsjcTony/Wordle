@@ -44,6 +44,18 @@
             cursor: pointer;
             transition: color .25s;
         }
+
+        .reset {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity .25s, visibility 0s .5s;
+
+            &.show {
+                opacity: 1;
+                visibility: visible;
+                transition: opacity .5s, visibility 0s;
+            }
+        }
     }
 
     @media screen and (min-width: 768px) {
