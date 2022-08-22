@@ -27,7 +27,7 @@ interface GameStateData {
 interface GameStateAction {
   setEvaluationResult: (word: Alphabet[], result: EvaluationResult) => void
   setGameStatus: (status: GameStatus) => void
-  resetState: () => void
+  restartGame: () => void
   insertLetter: (letter: Alphabet) => void
   removeLetter: () => void
   startEvaluating: () => void
@@ -66,7 +66,7 @@ const useGameState = create<GameState>()(persist(immer(set => ({
     })
   },
   setGameStatus: (status: GameStatus) => void set({ gameStatus: status }),
-  resetState: () => void set({ ...initialState, solution: '' }), // TODO: change solution to generator
+  restartGame: () => void set({ ...initialState, solution: 'humid' }), // TODO: change solution to generator
   insertLetter: (letter: Alphabet) => void set((state) => {
     if (state.currentWord.length !== 5) {
       state.currentWord.push(letter)

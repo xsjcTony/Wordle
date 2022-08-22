@@ -35,7 +35,10 @@
     }
 
     .header-right {
-        text-align: right;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 4px;
 
         svg {
             cursor: pointer;
