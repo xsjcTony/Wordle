@@ -1,12 +1,12 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import { useAsyncEffect } from 'ahooks'
+import { useAsyncEffect, useMount } from 'ahooks'
 import clsx from 'clsx'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 import BoardLetter from '@/components/BoardLetter'
-import { BoardLetterState, GameStatus, GUESS_CHANCE, WORD_LENGTH, winPrompt } from '@/constants'
+import { BoardLetterState, GameStatus, GUESS_CHANCE, winPrompt, WORD_LENGTH } from '@/constants'
 import { SHAKE } from '@/constants/animations'
 import useGameState from '@/store/useGameState'
 import useKeyState from '@/store/useKeyState'
@@ -36,13 +36,34 @@ const BoardRow = ({ rowIndex }: BoardRowProps): JSX.Element => {
     stopEvaluating,
     solution,
     setEvaluationResult,
-    setGameStatus
+    setGameStatus,
+    boardState,
+    evaluations
   } = useGameState((state) => {
-    const { currentWord, currentRowIndex, evaluating, stopEvaluating, solution, setEvaluationResult, setGameStatus } = state
+    const { currentWord, currentRowIndex, evaluating, stopEvaluating, solution, setEvaluationResult, setGameStatus, boardState, evaluations } = state
 
-    return { currentWord, currentRowIndex, evaluating, stopEvaluating, solution, setEvaluationResult, setGameStatus }
+    return { currentWord, currentRowIndex, evaluating, stopEvaluating, solution, setEvaluationResult, setGameStatus, boardState, evaluations }
   })
   const setKeyState = useKeyState(s => s.setKeyState)
+
+
+  // Initialize current letters on board
+  useMount(() => {
+    if (boardState[rowIndex] === '') return
+
+    const animations: (Promise<void> | undefined)[] = []
+
+    for (let i = 0; i < letterRefs.current.length; i++) {
+      animations.push(letterRefs.current[i]?.changeState(evaluations[rowIndex][i], i * 100))
+    }
+
+    void Promise.all(animations).then(() => {
+      evaluations[rowIndex].forEach((letterState, i) => {
+        // @ts-expect-error each letter is Alphabet for sure, and Evaluation result can be assigned to KeyboardLetterState for sure
+        setKeyState(boardState[rowIndex][i], letterState)
+      })
+    })
+  })
 
 
   const initialWord = useGameState.getState().boardState[rowIndex] // 5-letter word or '' (empty string)
@@ -92,9 +113,11 @@ const BoardRow = ({ rowIndex }: BoardRowProps): JSX.Element => {
 
     const evaluationResult = evaluateWord(word, solution)
 
+    const animations: (Promise<void> | undefined)[] = []
     for (let i = 0; i < letterRefs.current.length; i++) {
-      await letterRefs.current[i]?.changeState(evaluationResult[i])
+      animations.push(letterRefs.current[i]?.changeState(evaluationResult[i], i * 250))
     }
+    await Promise.all(animations)
 
     // win
     const win = compareFlatArray(evaluationResult, new Array(WORD_LENGTH).fill(BoardLetterState.correct))

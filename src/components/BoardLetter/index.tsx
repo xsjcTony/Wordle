@@ -27,8 +27,6 @@ const BoardLetter = forwardRef<BoardLetterRef, BoardLetterProps>((
 
   useImperativeHandle(ref, () => ({
     changeState: async (state: BoardLetterState, animationDelay?: number) => new Promise((resolve) => {
-      if (animationDelay !== undefined) resolve()
-
       setTimeout(async () => {
         const divEl = divRef.current
         if (!divEl) return
@@ -40,10 +38,10 @@ const BoardLetter = forwardRef<BoardLetterRef, BoardLetterProps>((
 
         setLetterState(state)
 
-        divEl.animate(FLIP_OUT, {
+        await divEl.animate(FLIP_OUT, {
           duration: 250,
           easing: 'ease-in'
-        })
+        }).finished
 
         resolve()
       }, animationDelay)
