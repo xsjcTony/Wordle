@@ -19,6 +19,15 @@ describe('Header', () => {
     expect(screen.getByAltText(/Aelita's Logo/i)).toBeVisible()
   })
 
+  it(`Click on Aelita's logo will open a new window to Aelita's github page`, () => {
+    render(<Header />)
+    const link = screen.getAllByRole('link')[0]
+    expect(link).toHaveAttribute('href', 'https://github.com/xsjcTony')
+    expect(link).toHaveAttribute('target', expect.stringContaining('_blank'))
+    expect(link).toHaveAttribute('rel', expect.stringContaining('noreferrer'))
+  })
+
+
   it(`Wordle's logo is visible`, () => {
     render(<Header />)
     expect(screen.getByAltText(/Wordle's Logo/i)).toBeVisible()
@@ -26,7 +35,7 @@ describe('Header', () => {
 
   it(`Click on Wordle's logo will open a new window to official site with noreferrer`, () => {
     render(<Header />)
-    const link = screen.getByRole('link')
+    const link = screen.getAllByRole('link')[1]
     expect(link).toHaveAttribute('href', 'https://www.nytimes.com/games/wordle/index.html')
     expect(link).toHaveAttribute('target', expect.stringContaining('_blank'))
     expect(link).toHaveAttribute('rel', expect.stringContaining('noreferrer'))
