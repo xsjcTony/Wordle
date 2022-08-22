@@ -1,8 +1,8 @@
-import { useEffect } from 'react'
 import { cssTransition, ToastContainer } from 'react-toastify'
 import Board from '@/components/Board'
 import Header from '@/components/Header'
 import Keyboard from '@/components/Keyboard'
+import useKeyboard from '@/hooks/useKeyboard'
 import useDarkMode from '@/store/useDarkMode'
 import styles from './App.module.scss'
 
@@ -15,11 +15,11 @@ const Fade = cssTransition({
 
 
 const App = (): JSX.Element => {
+  // Dark mode
   const darkMode = useDarkMode(s => s.darkMode)
 
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', darkMode)
-  }, [darkMode])
+  // Keyboard Listener
+  useKeyboard()
 
   return (
     <>

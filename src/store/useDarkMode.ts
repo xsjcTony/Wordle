@@ -8,9 +8,12 @@ interface DarkModeState {
 }
 
 
-const useDarkMode = create<DarkModeState>()(persist(set => ({
+const useDarkMode = create<DarkModeState>()(persist((set, get) => ({
   darkMode: false,
-  switchDarkMode: () => void set(state => ({ darkMode: !state.darkMode }))
+  switchDarkMode: () => {
+    set(state => ({ darkMode: !state.darkMode }))
+    document.documentElement.classList.toggle('dark', get().darkMode)
+  }
 }), {
   name: 'dark-mode',
   getStorage: () => localStorage
