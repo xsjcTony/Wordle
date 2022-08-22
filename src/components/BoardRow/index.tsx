@@ -62,7 +62,14 @@ const BoardRow = ({ rowIndex }: BoardRowProps): JSX.Element => {
   }, [])
 
 
-  useEffect(() => void (rowIndex === currentRowIndex && setWord(currentWord)), [currentWord])
+  useEffect(() => {
+    // clear all words when game restart
+    if (currentRowIndex === 0 && currentWord.length === 0) {
+      setWord(currentWord)
+    }
+
+    rowIndex === currentRowIndex && setWord(currentWord)
+  }, [currentWord])
 
 
   // evaluate word: Animation + GameState update

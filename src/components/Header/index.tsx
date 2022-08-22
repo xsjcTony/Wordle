@@ -1,11 +1,11 @@
+import { useCallback } from 'react'
 import wordleLogo from '@/assets/images/wordle.ico'
 import aelitaLogo from '/favicon.png'
 import { GameStatus } from '@/constants'
 import useDarkMode from '@/store/useDarkMode'
 import useGameState from '@/store/useGameState'
-import styles from './index.module.scss'
 import useKeyState from '@/store/useKeyState'
-import { useCallback } from 'react'
+import styles from './index.module.scss'
 
 
 const Header = (): JSX.Element => {
