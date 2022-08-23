@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/wordle/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>Aelita's Wordle</title>
+    <script>
+      (() => {
+        const obj = JSON.parse(localStorage.getItem('dark-mode'))
+        obj?.state?.darkMode && document.documentElement.classList.toggle('dark', true)
+      })();
+    </script>
+  <script type="module" crossorigin src="/wordle/assets/index.8050d47a.js"></script>
+  <link rel="stylesheet" href="/wordle/assets/index.00fa155a.css">
+</head>
+<body>
+<div id="app"></div>
+
+</body>
+</html>
