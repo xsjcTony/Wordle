@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { BoardLetterState } from '@/constants'
-import evaluateWord from '@/utils/evaluation'
+import { evaluateWord } from '@/utils/evaluation'
 import type { Alphabet } from '@/utils/types'
 
 

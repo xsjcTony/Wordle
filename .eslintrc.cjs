@@ -654,7 +654,7 @@ module.exports = {
         allowNumber: true,
         allowBoolean: false,
         allowAny: false,
-        allowNullish: false,
+        allowNullish: true,
         allowRegExp: false
       }
     ],

@@ -24,6 +24,7 @@ interface GameStateData {
   currentRowIndex: number
   currentWord: Alphabet[]
   evaluating: boolean
+  hardMode: boolean
 }
 
 interface GameStateAction {
@@ -34,6 +35,7 @@ interface GameStateAction {
   removeLetter: () => void
   startEvaluating: () => void
   stopEvaluating: () => void
+  switchHardMode: () => void
 }
 
 type GameState = GameStateAction & GameStateData
@@ -42,21 +44,22 @@ type GameState = GameStateAction & GameStateData
 /**
  * Initial state
  */
-const initialState = (): GameStateData => ({
+const initialState = (hardMode = false): GameStateData => ({
   gameStatus: GameStatus.inProgress,
   solution: getSolution(),
   boardState: new Array<string>(GUESS_CHANCE).fill('') as BoardState,
   evaluations: new Array(GUESS_CHANCE).fill([]) as Evaluations,
   currentRowIndex: 0,
   currentWord: [],
-  evaluating: false
+  evaluating: false,
+  hardMode
 })
 
 
 /**
  * Store
  */
-const useGameState = create<GameState>()(persist(immer(set => ({
+const useGameState = create<GameState>()(persist(immer((set, get) => ({
   ...initialState(),
   setEvaluationResult: (word: Alphabet[], result: EvaluationResult) => {
     set((state) => {
@@ -70,7 +73,7 @@ const useGameState = create<GameState>()(persist(immer(set => ({
   setGameStatus: (status: GameStatus) => void set({ gameStatus: status }),
   restartGame: () => {
     toast.dismiss()
-    set({ ...initialState(), solution: getSolution() })
+    set(state => ({ ...initialState(state.hardMode), solution: getSolution() }))
   },
   insertLetter: (letter: Alphabet) => void set((state) => {
     if (state.currentWord.length !== 5) {
@@ -83,19 +86,36 @@ const useGameState = create<GameState>()(persist(immer(set => ({
     }
   }),
   startEvaluating: () => void set({ evaluating: true }),
-  stopEvaluating: () => void set({ evaluating: false })
+  stopEvaluating: () => void set({ evaluating: false }),
+  switchHardMode: () => {
+    // disable hard mode
+    if (get().hardMode) {
+      toast('Hard mode disabled')
+      set({ hardMode: false })
+      return
+    }
+
+    // enable hard mode
+    if (get().gameStatus !== GameStatus.inProgress || get().currentRowIndex === 0) {
+      toast('Hard mode enabled')
+      set({ hardMode: true })
+    } else {
+      toast('Hard mode can only be enabled at the start of a round')
+    }
+  }
 })), {
   name: 'game-state',
   getStorage: () => localStorage,
   partialize: (state) => {
-    const { gameStatus, solution, boardState, evaluations, currentRowIndex } = state
+    const { gameStatus, solution, boardState, evaluations, currentRowIndex, hardMode } = state
 
     return {
       gameStatus,
       solution,
       boardState,
       evaluations,
-      currentRowIndex
+      currentRowIndex,
+      hardMode
     }
   }
 }))

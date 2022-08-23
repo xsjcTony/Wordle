@@ -1,6 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react-hooks/exhaustive-deps */
 
+
 import { useAsyncEffect, useMount } from 'ahooks'
 import clsx from 'clsx'
 import { useCallback, useEffect, useRef, useState } from 'react'
@@ -11,7 +12,7 @@ import { SHAKE } from '@/constants/animations'
 import useGameState from '@/store/useGameState'
 import useKeyState from '@/store/useKeyState'
 import { compareFlatArray, validateWord } from '@/utils'
-import evaluateWord from '@/utils/evaluation'
+import { evaluateHardMode, evaluateWord } from '@/utils/evaluation'
 import styles from './index.module.scss'
 import type { BoardLetterRef } from '@/components/BoardLetter'
 import type { Alphabet } from '@/utils/types'
@@ -38,11 +39,12 @@ const BoardRow = ({ rowIndex }: BoardRowProps): JSX.Element => {
     setEvaluationResult,
     setGameStatus,
     boardState,
-    evaluations
+    evaluations,
+    hardMode
   } = useGameState((state) => {
-    const { currentWord, currentRowIndex, evaluating, stopEvaluating, solution, setEvaluationResult, setGameStatus, boardState, evaluations } = state
+    const { currentWord, currentRowIndex, evaluating, stopEvaluating, solution, setEvaluationResult, setGameStatus, boardState, evaluations, hardMode } = state
 
-    return { currentWord, currentRowIndex, evaluating, stopEvaluating, solution, setEvaluationResult, setGameStatus, boardState, evaluations }
+    return { currentWord, currentRowIndex, evaluating, stopEvaluating, solution, setEvaluationResult, setGameStatus, boardState, evaluations, hardMode }
   })
   const setKeyState = useKeyState(s => s.setKeyState)
 
@@ -82,6 +84,8 @@ const BoardRow = ({ rowIndex }: BoardRowProps): JSX.Element => {
     letterRefs.current.push(ref)
   }, [])
 
+
+  // update board
   useEffect(() => {
     // clear all words when game restart
     if (currentRowIndex === 0 && currentWord.length === 0) {
@@ -93,7 +97,7 @@ const BoardRow = ({ rowIndex }: BoardRowProps): JSX.Element => {
 
 
   // evaluate word: Animation + GameState update
-  const _validateWord = useCallback(async (condition: boolean, message: string): Promise<boolean> => {
+  const stopEvaluationByCondition = useCallback(async (condition: boolean, message: string): Promise<boolean> => {
     if (condition) {
       toast(message)
       await rowRef.current?.animate(SHAKE, 600).finished
@@ -107,10 +111,23 @@ const BoardRow = ({ rowIndex }: BoardRowProps): JSX.Element => {
     if (
       rowIndex !== currentRowIndex
       || !evaluating
-      || await _validateWord(word.length !== WORD_LENGTH, 'Not enough letters')
-      || await _validateWord(!validateWord(word), 'Not in word list')
+      || await stopEvaluationByCondition(word.length !== WORD_LENGTH, 'Not enough letters')
+      || await stopEvaluationByCondition(!validateWord(word), 'Not in word list')
     ) return
 
+
+    // hard mode
+    if (hardMode && currentRowIndex !== 0) {
+      const result = evaluateHardMode(word, boardState[rowIndex - 1], evaluations[rowIndex - 1])
+
+      if (
+        await stopEvaluationByCondition(!!result.correct, `${result.ordinal} letter must be ${result.correct?.toUpperCase()}`)
+        || await stopEvaluationByCondition(!!result.present, `Guess must contain ${result.present?.toUpperCase()}`)
+      ) return
+    }
+
+
+    // word validated
     const evaluationResult = evaluateWord(word, solution)
 
     const animations: (Promise<void> | undefined)[] = []

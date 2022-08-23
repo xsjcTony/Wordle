@@ -1,9 +1,10 @@
 import { BoardLetterState, WORD_LENGTH } from '@/constants'
+import { num1To5ToOrdinal } from '@/utils/index'
 import type { EvaluationResult } from '@/store/useGameState'
 import type { Alphabet } from '@/utils/types'
 
 
-const evaluateWord = (guess: Alphabet[], solution: string): EvaluationResult => {
+export const evaluateWord = (guess: Alphabet[], solution: string): EvaluationResult => {
   // @ts-expect-error solution is consist of Alphabet for sure
   const solutionArr: Alphabet[] = solution.split('')
   const result: EvaluationResult = [] as unknown as EvaluationResult
@@ -47,4 +48,34 @@ const evaluateWord = (guess: Alphabet[], solution: string): EvaluationResult => 
   return result
 }
 
-export default evaluateWord
+
+interface HardModeEvaluationResult {
+  correct?: Alphabet
+  present?: Alphabet
+  ordinal: string
+}
+
+export const evaluateHardMode = (guess: Alphabet[], lastGuess: string, lastEvaluationResult: EvaluationResult): HardModeEvaluationResult => {
+  const res: HardModeEvaluationResult = { ordinal: '' }
+
+  lastEvaluationResult.some((state, i) => {
+    if (
+      state === BoardLetterState.correct
+      && guess[i] !== lastGuess[i]
+      && !res.correct
+    ) {
+      res.correct = lastGuess[i] as Alphabet
+      // @ts-expect-error (i + 1) is between 1 and 5 for sure
+      res.ordinal = num1To5ToOrdinal(i + 1)
+      return true
+    } else if (
+      state === BoardLetterState.present
+      && !guess.includes(lastGuess[i] as Alphabet)
+      && !res.present
+    ) {
+      res.present = lastGuess[i] as Alphabet
+    }
+  })
+
+  return res
+}
