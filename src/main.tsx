@@ -7,10 +7,6 @@ import ErrorBoundaryFallback from '@/components/ErrorBoundaryFallback'
 import App from '@/App'
 import 'react-toastify/dist/ReactToastify.css'
 import '@/assets/css/global.css'
-import eruda from 'eruda' // TODO: remove on production
-
-
-eruda.init() // TODO: remove on production
 
 
 createRoot(document.querySelector('#app') as HTMLDivElement).render(

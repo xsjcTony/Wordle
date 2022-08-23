@@ -32,7 +32,7 @@ ul {
  */
 @font-face {
     font-family: nyt-karnakcondensed;
-    src: url('src/assets/fonts/karnakcondensed-normal-700.woff2') format('woff2');
+    src: url('/src/assets/fonts/karnakcondensed-normal-700.woff2') format('woff2');
 }
 
 
