@@ -14,14 +14,16 @@
     .toast {
         width: max-content;
         min-height: auto !important;
-        user-select: none;
-        cursor: auto !important;
         margin: 0 auto 1rem !important;
         border-radius: 4px !important;
+        background-color: var(--color-tone-8);
+        cursor: auto !important;
+        user-select: none;
 
         .toast-body {
             margin: 0;
             padding: 5px;
+            color: var(--color-tone-7);
             font-size: 14px;
             font-weight: 700;
             text-align: center;
