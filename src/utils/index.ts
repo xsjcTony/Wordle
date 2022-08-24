@@ -10,10 +10,9 @@ export const compareFlatArray = (a: unknown[], b: unknown[]): boolean => a.lengt
 export const getSolution = (): string => targetWords[Math.floor(Math.random() * targetWords.length)]
 
 export const numToOrdinal = (num: number): string => {
-  const int = Math.round(Math.abs(num)).toString(10)
+  const indicators = ['th', 'st', 'nd', 'rd']
+  const int = Math.round(Math.abs(num))
+  const tens = int % 100
 
-  if (int.endsWith('1')) return `${int}st`
-  if (int.endsWith('2')) return `${int}nd`
-  if (int.endsWith('3')) return `${int}rd`
-  return `${int}th`
+  return `${int}${indicators[tens > 10 && tens < 20 ? 0 : tens % 10] ?? indicators[0]}`
 }
