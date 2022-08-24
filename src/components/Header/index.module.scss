@@ -11,18 +11,18 @@
 
     .title {
         flex: 1;
-        font-family: nyt-karnakcondensed;
-        font-size: 28px;
-        font-weight: 700;
-        white-space: nowrap;
-        transition: background-image .25s;
         pointer-events: none;
         margin-inline: 13px;
 
         span {
             background-image: var(--title-background);
             background-clip: text;
+            font-family: nyt-karnakcondensed;
+            font-size: 28px;
+            font-weight: 700;
             vertical-align: middle;
+            white-space: nowrap;
+            transition: background-image .25s;
             -webkit-text-fill-color: transparent;
         }
     }

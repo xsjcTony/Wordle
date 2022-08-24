@@ -1,6 +1,8 @@
 import userEvent from '@testing-library/user-event'
-import { expect, describe, it, afterEach } from 'vitest'
+import { afterEach, describe, expect, it } from 'vitest'
+import { GameStatus } from '@/constants'
 import useDarkMode from '@/store/useDarkMode'
+import useGameState from '@/store/useGameState'
 import useKeyState from '@/store/useKeyState'
 import { render, screen } from '@/test/utils'
 import Header from './'
@@ -8,54 +10,128 @@ import Header from './'
 
 describe('Header', () => {
   // reset store after each test case
-  const initialState = useKeyState.getState()
+  const initialKeyState = useKeyState.getState()
+  const initialGameState = useGameState.getState()
   afterEach(() => {
-    useKeyState.setState(initialState, true)
+    useKeyState.setState(initialKeyState, true)
+    useGameState.setState(initialGameState, true)
   })
 
 
-  it(`Aelita's logo is visible`, () => {
-    render(<Header />)
-    expect(screen.getByAltText(/Aelita's Logo/i)).toBeVisible()
+  describe(`Aelita's logo`, () => {
+    it(`Logo is visible`, () => {
+      render(<Header />)
+      expect(screen.getByAltText(/Aelita's Logo/i)).toBeVisible()
+    })
+
+
+    it(`Click on logo will open a new window to Aelita's github page`, () => {
+      render(<Header />)
+      const link = screen.getByTitle(/Aelita's github page/i)
+      expect(link).toHaveAttribute('href', 'https://github.com/xsjcTony')
+      expect(link).toHaveAttribute('target', expect.stringContaining('_blank'))
+      expect(link).toHaveAttribute('rel', expect.stringContaining('noreferrer'))
+    })
   })
 
-  it(`Click on Aelita's logo will open a new window to Aelita's github page`, () => {
-    render(<Header />)
-    const link = screen.getAllByRole('link')[0]
-    expect(link).toHaveAttribute('href', 'https://github.com/xsjcTony')
-    expect(link).toHaveAttribute('target', expect.stringContaining('_blank'))
-    expect(link).toHaveAttribute('rel', expect.stringContaining('noreferrer'))
+
+  describe(`Wordle's logo`, () => {
+    it(`Logo is visible`, () => {
+      render(<Header />)
+      expect(screen.getByAltText(/Wordle's Logo/i)).toBeVisible()
+    })
+
+
+    it(`Click on logo will open a new window to Wordle's official site`, () => {
+      render(<Header />)
+      const link = screen.getByTitle(/wordle's official site/i)
+      expect(link).toHaveAttribute('href', 'https://www.nytimes.com/games/wordle/index.html')
+      expect(link).toHaveAttribute('target', expect.stringContaining('_blank'))
+      expect(link).toHaveAttribute('rel', expect.stringContaining('noreferrer'))
+    })
   })
 
 
-  it(`Wordle's logo is visible`, () => {
-    render(<Header />)
-    expect(screen.getByAltText(/Wordle's Logo/i)).toBeVisible()
+  describe('Title', () => {
+    it('Title is visible with correct font-family', () => {
+      render(<Header />)
+      const title = screen.getByText(/Aelita's Wordle/i)
+
+      expect(screen.getByText(/Aelita's Wordle/i)).toBeVisible()
+      expect(getComputedStyle(title).fontFamily).toBe('nyt-karnakcondensed')
+    })
   })
 
-  it(`Click on Wordle's logo will open a new window to official site with noreferrer`, () => {
-    render(<Header />)
-    const link = screen.getAllByRole('link')[1]
-    expect(link).toHaveAttribute('href', 'https://www.nytimes.com/games/wordle/index.html')
-    expect(link).toHaveAttribute('target', expect.stringContaining('_blank'))
-    expect(link).toHaveAttribute('rel', expect.stringContaining('noreferrer'))
+
+  describe('Dark mode', () => {
+    it('Click icon to toggle dark mode', async () => {
+      useDarkMode.setState({ darkMode: true })
+
+      render(<Header />)
+      const icon = screen.getByLabelText(/dark mode/)
+
+      expect(useDarkMode.getState().darkMode).toBeTruthy()
+      await userEvent.click(icon)
+      expect(useDarkMode.getState().darkMode).toBeFalsy()
+      await userEvent.click(icon)
+      expect(useDarkMode.getState().darkMode).toBeTruthy()
+    })
   })
 
-  it('Title is visible', () => {
-    render(<Header />)
-    expect(screen.getByText(/Aelita's Wordle/i)).toBeVisible()
+
+  describe('Hard mode', () => {
+    it(`Show letter 'H' with hard mode OFF`, () => {
+      render(<Header />)
+
+      expect(screen.getByTitle(/turn hard mode/i).innerHTML).toBe('H')
+    })
+
+    it(`Show letter 'E' with hard mode ON`, () => {
+      useGameState.setState({ hardMode: true })
+
+      render(<Header />)
+
+      expect(screen.getByTitle(/turn hard mode/i).innerHTML).toBe('E')
+    })
+
+    it('Prevent hard mode on when game is in-progress and first round has been completed', async () => {
+      useGameState.setState({ currentRowIndex: 1 })
+
+      render(<Header />)
+      const icon = screen.getByTitle(/turn hard mode/i)
+
+      await userEvent.click(icon)
+      expect(useGameState.getState().hardMode).toBeFalsy()
+    })
   })
 
-  it('Click icon to toggle dark mode', async () => {
-    useDarkMode.setState({ darkMode: true })
+  describe('Reset game', () => {
+    it('Button is invisible when game is in progress', () => {
+      render(<Header />)
 
-    render(<Header />)
-    const icon = screen.getByRole('button')
+      expect(screen.getByLabelText(/start a new round/i)).not.toBeVisible()
+    })
 
-    expect(useDarkMode.getState().darkMode).toBeTruthy()
-    await userEvent.click(icon)
-    expect(useDarkMode.getState().darkMode).toBeFalsy()
-    await userEvent.click(icon)
-    expect(useDarkMode.getState().darkMode).toBeTruthy()
+    it('Win -> new round upon press the button', async () => {
+      useGameState.setState({ gameStatus: GameStatus.win })
+
+      render(<Header />)
+      const icon = screen.getByLabelText(/start a new round/i)
+
+      expect(icon).toBeVisible()
+      await userEvent.click(icon)
+      expect(useGameState.getState().gameStatus).toBe(GameStatus.inProgress)
+    })
+
+    it('Fail -> new round upon press the button', async () => {
+      useGameState.setState({ gameStatus: GameStatus.fail })
+
+      render(<Header />)
+      const icon = screen.getByLabelText(/start a new round/i)
+
+      expect(icon).toBeVisible()
+      await userEvent.click(icon)
+      expect(useGameState.getState().gameStatus).toBe(GameStatus.inProgress)
+    })
   })
 })

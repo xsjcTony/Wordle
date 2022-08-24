@@ -42,5 +42,5 @@ export default defineConfig({
   esbuild: {
     legalComments: 'none'
   },
-  base: '/'
+  base: '/' // https://wordle.aelita.me/
 })

@@ -26,10 +26,22 @@ const Header = (): JSX.Element => {
   return (
     <header className={styles.header}>
       <div className={styles.headerLeft}>
-        <a href="https://github.com/xsjcTony" rel="noreferrer" target="_blank">
+        <a
+          href="https://github.com/xsjcTony"
+          rel="noreferrer"
+          role="link"
+          target="_blank"
+          title="Aelita's github page"
+        >
           <img alt="Aelita's logo" className={styles.logo} src={aelitaLogo} />
         </a>
-        <a href="https://www.nytimes.com/games/wordle/index.html" rel="noreferrer" target="_blank">
+        <a
+          href="https://www.nytimes.com/games/wordle/index.html"
+          rel="noreferrer"
+          role="link"
+          target="_blank"
+          title="Wordle's official site"
+        >
           <img alt="Wordle's logo" className={styles.logo} src={wordleLogo} />
         </a>
       </div>
@@ -38,6 +50,7 @@ const Header = (): JSX.Element => {
       </h1>
       <div className={styles.headerRight}>
         <svg
+          aria-label="start a new round"
           className={clsx(styles.reset, gameStatus !== GameStatus.inProgress && styles.show)}
           fill="currentColor"
           height="26"
@@ -52,6 +65,7 @@ const Header = (): JSX.Element => {
         <span
           className={styles.hardMode}
           role="button"
+          title={`Turn hard mode ${hardMode ? 'off' : 'on'}`}
           onClick={switchHardMode}
         >
           {hardMode ? 'E' : 'H'}
@@ -59,6 +73,7 @@ const Header = (): JSX.Element => {
         {darkMode
           ? (
             <svg
+              aria-label="switch off dark mode"
               fill="currentColor"
               height="28"
               role="button"
@@ -72,6 +87,7 @@ const Header = (): JSX.Element => {
           )
           : (
             <svg
+              aria-label="switch on dark mode"
               className="icon"
               fill="currentColor"
               height="28"
