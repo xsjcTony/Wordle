@@ -9,13 +9,11 @@ export const compareFlatArray = (a: unknown[], b: unknown[]): boolean => a.lengt
 
 export const getSolution = (): string => targetWords[Math.floor(Math.random() * targetWords.length)]
 
-export const num1To5ToOrdinal = (n: 1 | 2 | 3 | 4 | 5): string =>
-  n === 1
-    ? '1st'
-    : n === 2
-      ? '2nd'
-      : n === 3
-        ? '3rd'
-        : n === 4
-          ? '4th'
-          : '5th'
+export const numToOrdinal = (num: number): string => {
+  const int = Math.round(Math.abs(num)).toString(10)
+
+  if (int.endsWith('1')) return `${int}st`
+  if (int.endsWith('2')) return `${int}nd`
+  if (int.endsWith('3')) return `${int}rd`
+  return `${int}th`
+}

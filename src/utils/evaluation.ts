@@ -1,5 +1,5 @@
 import { BoardLetterState, WORD_LENGTH } from '@/constants'
-import { num1To5ToOrdinal } from '@/utils/index'
+import { numToOrdinal } from '@/utils/index'
 import type { EvaluationResult } from '@/store/useGameState'
 import type { Alphabet } from '@/utils/types'
 
@@ -65,8 +65,7 @@ export const evaluateHardMode = (guess: Alphabet[], lastGuess: string, lastEvalu
       && !res.correct
     ) {
       res.correct = lastGuess[i] as Alphabet
-      // @ts-expect-error (i + 1) is between 1 and 5 for sure
-      res.ordinal = num1To5ToOrdinal(i + 1)
+      res.ordinal = numToOrdinal(i + 1)
       return true
     } else if (
       state === BoardLetterState.present
