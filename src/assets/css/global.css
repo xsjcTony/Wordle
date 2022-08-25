@@ -39,6 +39,7 @@ ul {
 /* App */
 #app {
     height: 100%;
+    min-width: 375px;
 }
 
 
