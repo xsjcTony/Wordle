@@ -55,10 +55,16 @@ describe('Header', () => {
   describe('Title', () => {
     it('Title is visible with correct font-family', () => {
       render(<Header />)
-      const title = screen.getByText(/Aelita's Wordle/i)
+      const title = screen.getByLabelText(/title/i)
 
-      expect(screen.getByText(/Aelita's Wordle/i)).toBeVisible()
+      expect(title).toBeVisible()
       expect(getComputedStyle(title).fontFamily).toBe('nyt-karnakcondensed')
+    })
+
+    it('Sub title is aligned on baseline', () => {
+      render(<Header />)
+
+      expect(getComputedStyle(screen.getByText(/Aelita's/i)).verticalAlign).toBe('baseline')
     })
   })
 

@@ -12,7 +12,7 @@
     .title {
         flex: 1;
         pointer-events: none;
-        margin-inline: 13px;
+        margin-inline: 10px;
 
         span {
             background-image: var(--title-background);
@@ -22,14 +22,26 @@
             font-weight: 700;
             vertical-align: middle;
             white-space: nowrap;
+            letter-spacing: 0.01em;
             transition: background-image .25s;
             -webkit-text-fill-color: transparent;
+
+            sub {
+                display: inline-block;
+                font-size: 16px;
+                vertical-align: baseline;
+
+                &::first-letter {
+                    font-size: 24px;
+                }
+            }
         }
     }
 
     .header-left {
         display: flex;
-        gap: 13px;
+        align-items: center;
+        gap: 6px;
 
         img {
             width: 28px;
@@ -75,8 +87,19 @@
         }
 
         .title {
-            font-size: 32px;
             text-align: center;
+
+            span {
+                font-size: 32px;
+
+                sub {
+                    font-size: 18px;
+
+                    &::first-letter {
+                        font-size: 28px;
+                    }
+                }
+            }
         }
     }
 }

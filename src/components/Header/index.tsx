@@ -46,7 +46,9 @@ const Header = (): JSX.Element => {
         </a>
       </div>
       <h1 className={styles.title}>
-        <span>Aelita&apos;s Wordle</span>
+        <span aria-label="title">
+          <sub>Aelita&apos;s</sub> Wordle
+        </span>
       </h1>
       <div className={styles.headerRight}>
         <svg
