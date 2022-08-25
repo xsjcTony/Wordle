@@ -53,18 +53,14 @@ describe('Header', () => {
 
 
   describe('Title', () => {
-    it('Title is visible with correct font-family', () => {
+    it('Title is visible with correct font-family and aligned to baseline', () => {
       render(<Header />)
       const title = screen.getByLabelText(/title/i)
+      const style = getComputedStyle(title)
 
       expect(title).toBeVisible()
-      expect(getComputedStyle(title).fontFamily).toBe('nyt-karnakcondensed')
-    })
-
-    it('Sub title is aligned on baseline', () => {
-      render(<Header />)
-
-      expect(getComputedStyle(screen.getByText(/Aelita's/i)).verticalAlign).toBe('baseline')
+      expect(style.fontFamily).toBe('nyt-karnakcondensed')
+      expect(style.alignItems).toBe('baseline')
     })
   })
 
@@ -86,18 +82,18 @@ describe('Header', () => {
 
 
   describe('Hard mode', () => {
-    it(`Show letter 'H' with hard mode OFF`, () => {
+    it(`Show letter 'E' with hard mode OFF`, () => {
       render(<Header />)
 
-      expect(screen.getByTitle(/turn hard mode/i).innerHTML).toBe('H')
+      expect(screen.getByTitle(/turn hard mode/i).innerHTML).toBe('E')
     })
 
-    it(`Show letter 'E' with hard mode ON`, () => {
+    it(`Show letter 'H' with hard mode ON`, () => {
       useGameState.setState({ hardMode: true })
 
       render(<Header />)
 
-      expect(screen.getByTitle(/turn hard mode/i).innerHTML).toBe('E')
+      expect(screen.getByTitle(/turn hard mode/i).innerHTML).toBe('H')
     })
 
     it('Prevent hard mode on when game is in-progress and first round has been completed', async () => {
