@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { BoardLetterState } from '@/constants'
 import { render, screen, act } from '@/test/utils'
 import BoardLetter from './'
@@ -23,9 +23,6 @@ describe('BoardLetter', () => {
     const { rerender } = render(<BoardLetter letter={void 0} />)
 
     const letter = screen.getByLabelText('guessed letter')
-    // @ts-expect-error Mock Web Animations API
-    letter.animate = vi.fn(() => ({ finished: Promise.resolve() }))
-    letter.getAnimations = vi.fn(() => [])
 
     rerender(<BoardLetter letter="a" />)
 
@@ -50,9 +47,6 @@ describe('BoardLetter', () => {
     render(<UseRefs />)
 
     const letter = screen.getByLabelText('guessed letter')
-
-    // @ts-expect-error Mock Web Animations API
-    letter.animate = vi.fn(() => ({ finished: Promise.resolve() }))
 
     // @ts-expect-error ref is assigned
     await act(() => ref.current?.changeState(BoardLetterState.tbd))

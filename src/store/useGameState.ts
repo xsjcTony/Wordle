@@ -14,7 +14,7 @@ type BoardState = Tuple<string, typeof GUESS_CHANCE>
 
 export type EvaluationResult = Tuple<BoardLetterState, typeof WORD_LENGTH>
 
-type Evaluations = Tuple<EvaluationResult, typeof GUESS_CHANCE>
+export type Evaluations = Tuple<EvaluationResult, typeof GUESS_CHANCE>
 
 interface GameStateData {
   gameStatus: GameStatus

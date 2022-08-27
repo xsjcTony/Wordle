@@ -164,7 +164,11 @@ const BoardRow = ({ rowIndex }: BoardRowProps): JSX.Element => {
 
 
   return (
-    <div ref={rowRef} className={styles.boardRow}>
+    <div
+      ref={rowRef}
+      aria-label="guessed word"
+      className={styles.boardRow}
+    >
       {new Array(WORD_LENGTH).fill(void 0).map((_, i) => (
         <div
           key={i}

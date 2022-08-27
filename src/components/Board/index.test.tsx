@@ -12,4 +12,11 @@ describe('Board', () => {
     expect(style.display).toBe('flex')
     expect(style.flexDirection).toBe('column')
   })
+
+
+  it('6 Rows are rendered', () => {
+    render(<Board />)
+    const boardRows = screen.getAllByLabelText(/guessed word/i)
+    expect(boardRows.length).toBe(6)
+  })
 })

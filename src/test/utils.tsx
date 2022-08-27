@@ -1,10 +1,17 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
 import { cleanup, render } from '@testing-library/react'
-import { afterEach } from 'vitest'
+import { afterEach, vi, beforeAll } from 'vitest'
 import type { RenderOptions } from '@testing-library/react'
 import type { PropsWithChildren, ReactElement } from 'react'
 
+
+// Web Animations API mocking
+beforeAll(() => {
+  Element.prototype.getAnimations = vi.fn(() => [])
+  // @ts-expect-error Mock Web Animations API
+  Element.prototype.animate = vi.fn(() => ({ finished: Promise.resolve() }))
+})
 
 afterEach(() => {
   cleanup()
