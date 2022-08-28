@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import { useCallback, useEffect } from 'react'
 import { GameStatus } from '@/constants'
 import useGameState from '@/store/useGameState'

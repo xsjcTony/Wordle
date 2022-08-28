@@ -77,6 +77,8 @@ ul {
     --header-padding-x: 16px;
     --keyboard-height: 200px;
     --game-max-width: 500px;
+    --toast-z-index: 1000;
+    --modal-z-index: 2000;
 
     --color-tone-1: #000000;
     --color-tone-2: #787c7e;
