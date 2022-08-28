@@ -18,7 +18,7 @@ describe('Key', () => {
 
 
   it('Key renders with correct uppercase text and correct size', () => {
-    render(<Key wide text="h" />)
+    render(<Key wide label="h" text="h" />)
     const button = screen.getByRole('button')
     const buttonStyle = getComputedStyle(button)
 
@@ -31,7 +31,7 @@ describe('Key', () => {
 
 
   it('Key renders with correct state', () => {
-    render(<Key text="a" />)
+    render(<Key label="a" text="a" />)
     const button = screen.getByRole('button')
 
     expect(button.dataset['state']).toBeUndefined()
@@ -47,7 +47,7 @@ describe('Key', () => {
 
 
   it('Insert letter upon click a key', async () => {
-    render(<Key text="a" />)
+    render(<Key label="a" text="a" />)
     const button = screen.getByRole('button')
 
     await userEvent.click(button)
@@ -59,7 +59,7 @@ describe('Key', () => {
   it('Nothing happens upon click a key if evaluating', async () => {
     useGameState.setState({ evaluating: true })
 
-    render(<Key text="a" />)
+    render(<Key label="a" text="a" />)
     const button = screen.getByRole('button')
 
     await userEvent.click(button)
@@ -71,7 +71,7 @@ describe('Key', () => {
   it('Nothing happens upon click a key if game is not IN_PROGRESS', async () => {
     useGameState.setState({ gameStatus: GameStatus.win })
 
-    render(<Key text="a" />)
+    render(<Key label="a" text="a" />)
     const button = screen.getByRole('button')
 
     await userEvent.click(button)
