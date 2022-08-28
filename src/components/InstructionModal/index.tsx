@@ -98,7 +98,7 @@ const InstructionModal = ({ isOpen, closeModalHandler }: InstructionModalProps):
           <div>
             <p><strong>Other features</strong></p>
             <p>Dark Mode: Press <Sun /> or <Moon /> to switch dark mode ON / OFF.</p>
-            <p>Hard Mode: Press <strong>E</strong> or <strong>H</strong> to switch hard mode ON / OFF.</p>
+            <p>Hard Mode: Press <strong className={styles.hardMode}>E</strong> or <strong className={styles.hardMode}>H</strong> to switch hard mode ON / OFF.</p>
             <p>New Round: Press <Reset /> to start a new round. <i>You can only start a new round if you won or lost the current one.</i></p>
           </div>
         </div>

@@ -70,13 +70,12 @@ describe('Header', () => {
       useDarkMode.setState({ darkMode: true })
 
       render(<Header />)
-      const icon = screen.getByLabelText(/dark mode/)
 
-      expect(useDarkMode.getState().darkMode).toBeTruthy()
-      await userEvent.click(icon)
-      expect(useDarkMode.getState().darkMode).toBeFalsy()
-      await userEvent.click(icon)
-      expect(useDarkMode.getState().darkMode).toBeTruthy()
+      expect(useDarkMode.getState().darkMode).toBe(true)
+      await userEvent.click(screen.getByLabelText(/dark mode/))
+      expect(useDarkMode.getState().darkMode).toBe(false)
+      await userEvent.click(screen.getByLabelText(/dark mode/))
+      expect(useDarkMode.getState().darkMode).toBe(true)
     })
   })
 
