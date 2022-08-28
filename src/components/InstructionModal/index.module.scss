@@ -32,4 +32,12 @@
         font-size: 28px;
         font-weight: 400;
     }
+
+    .feature-with-description {
+        margin-bottom: 0;
+
+        & + p {
+            margin-top: 0;
+        }
+    }
 }
