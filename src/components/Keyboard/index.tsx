@@ -11,17 +11,27 @@ const Keyboard = (): JSX.Element => {
   return (
     <div className={styles.keyboard}>
       <div className={styles.keyboardRow}>
-        {FIRST_ROW.map(letter => <Key key={letter} text={letter} />)}
+        {FIRST_ROW.map(letter => <Key key={letter} label={letter} text={letter} />)}
       </div>
       <div className={styles.keyboardRow}>
         <div className={styles.keyboardSpace} />
-        {SECOND_ROW.map(letter => <Key key={letter} text={letter} />)}
+        {SECOND_ROW.map(letter => <Key key={letter} label={letter} text={letter} />)}
         <div className={styles.keyboardSpace} />
       </div>
       <div className={styles.keyboardRow}>
-        <Key wide text="enter" onClick={startEvaluating} />
-        {THIRD_ROW.map(letter => <Key key={letter} text={letter} />)}
-        <Key wide text={<Backspace />} onClick={removeLetter} />
+        <Key
+          wide
+          label="enter"
+          text="enter"
+          onClick={startEvaluating}
+        />
+        {THIRD_ROW.map(letter => <Key key={letter} label={letter} text={letter} />)}
+        <Key
+          wide
+          label="backspace"
+          text={<Backspace />}
+          onClick={removeLetter}
+        />
       </div>
     </div>
   )
