@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/brace-style */
 
 import { useUpdateEffect } from 'ahooks'
+import clsx from 'clsx'
 import { forwardRef, memo, useImperativeHandle, useRef, useState } from 'react'
 import { BoardLetterState } from '@/constants'
 import { FLIP_IN, FLIP_OUT, POP_IN } from '@/constants/animations'
@@ -14,11 +15,16 @@ export interface BoardLetterRef {
 
 interface BoardLetterProps {
   letter: Alphabet | undefined
+  // eslint-disable-next-line react/require-default-props
+  className?: string
 }
 
 
 const BoardLetter = forwardRef<BoardLetterRef, BoardLetterProps>((
-  { letter },
+  {
+    letter,
+    className = void 0
+  },
   ref
 ): JSX.Element => {
   const [letterState, setLetterState] = useState<BoardLetterState>(letter ? BoardLetterState.tbd : BoardLetterState.empty)
@@ -69,7 +75,7 @@ const BoardLetter = forwardRef<BoardLetterRef, BoardLetterProps>((
       ref={divRef}
       aria-label="guessed letter"
       aria-roledescription="Display of guessed letter"
-      className={styles.boardLetter}
+      className={clsx(className, styles.boardLetter)}
       data-state={letterState}
     >
       {letter}

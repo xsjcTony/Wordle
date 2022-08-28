@@ -1,0 +1,30 @@
+.heading {
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 15px;
+    color: var(--color-tone-1);
+}
+
+.rule {
+    font-size: 14px;
+    color: var(--color-tone-1);
+
+    .examples {
+        border-top: 1px solid var(--color-tone-4);
+        border-bottom: 1px solid var(--color-tone-4);
+
+        .example {
+            margin-block: 24px;
+
+            .letter-container {
+                display: inline-block;
+                width: 40px;
+                height: 40px;
+                margin-right: 4px;
+            }
+        }
+    }
+}
