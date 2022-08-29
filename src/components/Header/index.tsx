@@ -1,4 +1,4 @@
-import { useBoolean } from 'ahooks'
+import { useBoolean, useLocalStorageState, useMount } from 'ahooks'
 import clsx from 'clsx'
 import { useCallback } from 'react'
 import { ReactComponent as Moon } from '@/assets/images/moon.svg'
@@ -38,6 +38,18 @@ const Header = (): JSX.Element => {
       setFalse: closeInstructionModal
     }
   ] = useBoolean(false)
+
+
+  // Show instruction modal if play for first time
+  const [learned, setLearned] = useLocalStorageState<boolean>('learned', { defaultValue: false })
+
+  useMount(() => {
+    if (!learned) {
+      openInstructionModal()
+      setLearned(true)
+    }
+  })
+
 
   return (
     <>

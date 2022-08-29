@@ -1,5 +1,6 @@
 import { useCallback, useRef } from 'react'
 import { ReactComponent as Moon } from '@/assets/images/moon.svg'
+import { ReactComponent as QuestionMark } from '@/assets/images/question-mark.svg'
 import { ReactComponent as Reset } from '@/assets/images/reset.svg'
 import { ReactComponent as Sun } from '@/assets/images/sun.svg'
 import BoardLetter from '@/components/BoardLetter'
@@ -95,13 +96,14 @@ const InstructionModal = ({ isOpen, closeModalHandler }: InstructionModalProps):
             </div>
           </div>
 
-          <div>
+          <div className={styles.otherFeatures}>
             <p><strong>Other features</strong></p>
             <p>Dark Mode: Press <Sun /> or <Moon /> to switch dark mode ON / OFF.</p>
             <p className={styles.featureWithDescription}>Hard Mode: Press <strong className={styles.hardMode}>E</strong> or <strong className={styles.hardMode}>H</strong> to switch hard mode ON / OFF.</p>
             <p>Any revealed hints <strong>MUST</strong> be used in subsequent guesses.</p>
             <p className={styles.featureWithDescription}>New Round: Press <Reset /> to start a new round.</p>
             <p>You can <strong>ONLY</strong> start a new round if you won or lost the current one.</p>
+            <p>Instruction: Press <QuestionMark /> to show this instruction again.</p>
           </div>
         </div>
       </section>

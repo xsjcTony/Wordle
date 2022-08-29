@@ -28,16 +28,22 @@
         }
     }
 
-    .hard-mode {
-        font-size: 28px;
-        font-weight: 400;
-    }
+    .other-features {
+        p:last-child {
+            margin-bottom: 0;
+        }
 
-    .feature-with-description {
-        margin-bottom: 0;
+        .hard-mode {
+            font-size: 28px;
+            font-weight: 400;
+        }
 
-        & + p {
-            margin-top: 0;
+        .feature-with-description {
+            margin-bottom: 0;
+
+            & + p {
+                margin-top: 0;
+            }
         }
     }
 }
