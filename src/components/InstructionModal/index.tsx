@@ -96,14 +96,14 @@ const InstructionModal = ({ isOpen, closeModalHandler }: InstructionModalProps):
             </div>
           </div>
 
-          <div className={styles.otherFeatures}>
-            <p><strong>Other features</strong></p>
-            <p>Dark Mode: Press <Sun /> or <Moon /> to switch dark mode ON / OFF.</p>
-            <p className={styles.featureWithDescription}>Hard Mode: Press <strong className={styles.hardMode}>E</strong> or <strong className={styles.hardMode}>H</strong> to switch hard mode ON / OFF.</p>
+          <div className={styles.features}>
+            <p><strong>Features</strong></p>
+            <p><strong>Dark Mode</strong>: Press <Sun /> or <Moon /> to switch dark mode ON / OFF.</p>
+            <p className={styles.featureWithDescription}><strong>Hard Mode</strong>: Press <strong className={styles.hardMode}>E</strong> or <strong className={styles.hardMode}>H</strong> to switch hard mode ON / OFF.</p>
             <p>Any revealed hints <strong>MUST</strong> be used in subsequent guesses.</p>
-            <p className={styles.featureWithDescription}>New Round: Press <Reset /> to start a new round.</p>
+            <p className={styles.featureWithDescription}><strong>New Round</strong>: Press <Reset /> to start a new round.</p>
             <p>You can <strong>ONLY</strong> start a new round if you won or lost the current one.</p>
-            <p>Instruction: Press <QuestionMark /> to show this instruction again.</p>
+            <p><strong>Instruction</strong>: Press <QuestionMark /> to show this instruction again.</p>
           </div>
         </div>
       </section>
